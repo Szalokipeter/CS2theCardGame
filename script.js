@@ -1,29 +1,34 @@
+import { Card } from "./card";
 import { Agent } from "./agent";
 import { Item } from "./item";
+import { Weapon } from "./weapon";
+import { Enemy } from "./enemy";
 
-// 'type;damage;ammo',
-let CTCards = []
-let TCards = []
 
-let agents = [];
+let CTCards = [];
+let TCards = [];
+let Enemyboard = [];
+let Ourboard = [];
 let playerTeam = DecideTeam();
 let playerCase = generateCase(playerTeam);
-
+let startpistol;
 
 MakeAgents(playerTeam);
 
 function DecideTeam() {
     if (Math.random() > 0.5) {
+        startpistol = new Weapon(2, 0, 1, 'img/Glock.img');
         return 'T';
     } else {
+        startpistol = new Weapon(2, 0, 1, 'img/USP.img');
         return 'CT';
     }
 }
 
 function MakeAgents(team) {
-    for (let i = 1; i = 6; i++) {
-        let agent = new Agent(team);
-        agents.push(agent);
+    for (let i = 1; i < 6; i++) {
+        let agent = new Agent(team, startpistol, 'img/Agent.img');
+        Ourboard.push(agent);
 
         let div = document.createElement('div');
         div.classList.add('agent');
@@ -51,7 +56,7 @@ function generateCase(team) {
     if (team = 'T') {
         generatedCase = TCards;
     } else {
-        generateCase = CTCards;
+        generatedCase = CTCards;
     }
     //shuffle
     for (var i = generatedCase.length - 1; i > 0; i--) {

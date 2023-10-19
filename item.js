@@ -1,13 +1,13 @@
-export class Item {
-    constructor(type, damage, ammo) {
-        this.type
-        this.damage;
-        this.ammo;
+export class Item extends Card {
+    constructor(type, cost, picpath) {
+        super(cost)
+        this.type;
+        this.imagePath = picpath;
     }
 
 
-    Use(target) {
-        ammo -= 1;
+    play(target) {
+        // töröljük a kijátszott kártyát
         //damage
     }
 }
