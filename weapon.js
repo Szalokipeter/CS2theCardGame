@@ -1,6 +1,6 @@
 export class Weapon extends Card{
 
-    constructor(damage, cost, slotnum, picpath, durability){
+    constructor(damage, cost, slotnum, durability,  picpath){
         super(cost)
         this.damage = damage;
         this.imagepath = picpath;
@@ -8,6 +8,7 @@ export class Weapon extends Card{
         this.slotMain = slotnum == 0 ? true : false;
         this.slotSecondary = slotnum == 1 ? true : false;
     }
+
     play(target){
         
     }

@@ -17,16 +17,17 @@ MakeAgents(playerTeam);
 
 function DecideTeam() {
     if (Math.random() > 0.5) {
-        startpistol = new Weapon(2, 0, 1, 'img/Glock.img');
+        // startpistol = new Weapon(2, 0, 1, 8, 'img/Glock.img');
         return 'T';
     } else {
-        startpistol = new Weapon(2, 0, 1, 'img/USP.img');
+        // startpistol = new Weapon(3, 0, 1, 4, 'img/USP.img');
         return 'CT';
     }
 }
 
 function MakeAgents(team) {
     for (let i = 1; i < 6; i++) {
+        
         let agent = new Agent(team, startpistol, 'img/Agent.img');
         Ourboard.push(agent);
 

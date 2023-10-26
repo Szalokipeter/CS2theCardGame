@@ -8,6 +8,6 @@ export class Item extends Card {
 
     play(target) {
         // töröljük a kijátszott kártyát
-        //damage
+        // function
     }
 }
