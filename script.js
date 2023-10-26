@@ -1,8 +1,8 @@
-import { Card } from "./card";
-import { Agent } from "./agent";
-import { Item } from "./item";
-import { Weapon } from "./weapon";
-import { Enemy } from "./enemy";
+import { Card } from "./card.js";
+import { Agent } from "./agent.js";
+import { Item } from "./item.js";
+import { Weapon } from "./weapon.js";
+import { Enemy } from "./enemy.js";
 
 
 let CTCards = [];
@@ -12,6 +12,11 @@ let Ourboard = [];
 let playerTeam = DecideTeam();
 let playerCase = generateCase(playerTeam);
 let startpistol;
+let EnemyWeapons = [
+    new Weapon(8,5,0,5, "img/AWP.png"),
+    new Weapon(8,5,0,5, "img/AWP.png"),
+    new Weapon(8,5,0,5, "img/AWP.png")
+];
 
 MakeAgents(playerTeam);
 
@@ -25,17 +30,18 @@ function DecideTeam() {
 
 function MakeAgents(team) {
     for (let i = 1; i < 6; i++) {
-        if (playerTeam = 'T') {
-            let agent = new Agent(team, new Weapon(2, 0, 1, 8, 'img/Glock.img'), 'img/Agent.img');
+        let agent;
+        if (playerTeam == 'T') {
+            agent = new Agent(team, new Weapon(2, 0, 1, 8, 'img/Glock.img'), 'img/Agent.img');
         } else {
-            let agent = new Agent(team, new Weapon(3, 0, 1, 4, 'img/USP.img'), 'img/Agent.img');
+            agent = new Agent(team, new Weapon(3, 0, 1, 4, 'img/USP.img'), 'img/Agent.img');
         }
         Ourboard.push(agent);
 
         let div = document.createElement('div');
         div.classList.add('agent');
         div.id = `agent${i}`
-        document.querySelector('.player-cards').appendChild(div);
+        document.querySelector('.player_cards').appendChild(div);
 
         let hp = document.createElement('div');
         hp.classList.add('hpCounter');
@@ -49,7 +55,8 @@ function MakeAgents(team) {
         let slot2 = document.createElement('div');
         slot2.classList.add('slot2');
         document.querySelector(`#agent${i}`).appendChild(slot2);
-
+        
+        console.log(agent.slot2);
     }
 }
 

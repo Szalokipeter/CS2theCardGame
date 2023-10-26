@@ -1,21 +1,49 @@
-.own_character{
-
+ *{
+    padding: 0;
+    margin: 0;
+ }
+ 
+.enemy_cards{
+    width: 100%;
+    border: 1px solid black;
+    height: 300px;
 }
-.enemy_board{
-
+.own_cards{
+ width: 100%;
+ border: 1px solid black;
+ height: 100px;
 }
-.own_board{
-
+.player_hand{
+    width: 100%;
+    border: 1px solid black;
+    height: 200px;
 }
 .end_turn{
-
+    position: absolute;
+    right: 10%;
+    border: 1px solid black;
 }
-.own_hand{
-
+.player_cards{
+    width: 100%;
+    border: 1px solid black;
+    display: flex;
+    align-items: stretch;
 }
-.own_deck{
-
+.case{
+    position: absolute;
+    right: 10%;
+    border: 1px solid black;
+    height: 50px;
+    width: 50px;
 }
 .turn_counter{
 
+}
+
+
+.agent{
+    width: 15%;
+    margin: 10px;
+    border: 1px solid black;
+    height: 100px;
 }

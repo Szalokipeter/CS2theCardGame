@@ -1,3 +1,5 @@
+import { Card } from "./card.js";
+
 export class Item extends Card {
     constructor(type, cost, picpath) {
         super(cost)

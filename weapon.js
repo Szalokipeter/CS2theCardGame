@@ -1,3 +1,5 @@
+import { Card } from "./card.js";
+
 export class Weapon extends Card{
 
     constructor(damage, cost, slotnum, durability,  picpath){
