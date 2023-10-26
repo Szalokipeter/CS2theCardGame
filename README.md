@@ -1,4 +1,4 @@
-# CSGOtheCardGame
+# CS2theCardGame
 
 - PVE Card Game
 - Kézben vannak a Kártyák, amik lehetnek utility-k vagy fegyverek

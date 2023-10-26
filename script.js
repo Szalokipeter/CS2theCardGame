@@ -17,18 +17,19 @@ MakeAgents(playerTeam);
 
 function DecideTeam() {
     if (Math.random() > 0.5) {
-        // startpistol = new Weapon(2, 0, 1, 8, 'img/Glock.img');
         return 'T';
     } else {
-        // startpistol = new Weapon(3, 0, 1, 4, 'img/USP.img');
         return 'CT';
     }
 }
 
 function MakeAgents(team) {
     for (let i = 1; i < 6; i++) {
-        
-        let agent = new Agent(team, startpistol, 'img/Agent.img');
+        if (playerTeam = 'T') {
+            let agent = new Agent(team, new Weapon(2, 0, 1, 8, 'img/Glock.img'), 'img/Agent.img');
+        } else {
+            let agent = new Agent(team, new Weapon(3, 0, 1, 4, 'img/USP.img'), 'img/Agent.img');
+        }
         Ourboard.push(agent);
 
         let div = document.createElement('div');
