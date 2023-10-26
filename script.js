@@ -27,7 +27,11 @@ function DecideTeam() {
 
 function MakeAgents(team) {
     for (let i = 1; i < 6; i++) {
-        let agent = new Agent(team, startpistol, 'img/Agent.img');
+        if (playerTeam = 'T') {
+            let agent = new Agent(team, new Weapon(2, 0, 1, 'img/Glock.img'), 'img/Agent.img');
+        } else {
+            let agent = new Agent(team, new Weapon(2, 0, 1, 'img/USP.img'), 'img/Agent.img');
+        }
         Ourboard.push(agent);
 
         let div = document.createElement('div');
