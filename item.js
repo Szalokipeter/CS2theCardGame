@@ -1,10 +1,11 @@
 import { Card } from "./card.js";
 
 export class Item extends Card {
-    constructor(type, cost, picpath) {
+    constructor(type, cost, picpath, clicked) {
         super(cost)
-        this.type;
+        this.type = type;
         this.imagePath = picpath;
+        this.clicked = clicked;
     }
 
 
