@@ -3,47 +3,111 @@
     margin: 0;
  }
  
-.enemy_cards{
-    width: 100%;
-    border: 1px solid black;
-    height: 300px;
-}
-.own_cards{
- width: 100%;
- border: 1px solid black;
- height: 100px;
-}
-.player_hand{
-    width: 100%;
-    border: 1px solid black;
-    height: 200px;
-}
-.end_turn{
-    position: absolute;
-    right: 10%;
-    border: 1px solid black;
-}
-.player_cards{
-    width: 100%;
-    border: 1px solid black;
+.board {
+    margin: 10vh;
+    border: 1px black solid;
+    width: auto;
+    height: 80vh;
     display: flex;
-    align-items: stretch;
-}
-.case{
-    position: absolute;
-    right: 10%;
-    border: 1px solid black;
-    height: 50px;
-    width: 50px;
-}
-.turn_counter{
-
 }
 
 
-.agent{
+.main {
+    width: 90%;
+    height: 100%;
+}
+
+.enemy {
+    width: 100%;
+    height: 60%;
+}
+
+.enemy_cards {
+    width: 100%;
+    border: 1px black solid;
+    height: 100%;
+}
+
+.player {
+    width: 100%;
+    height: 40%;
+}
+
+.player_cards {
+    height: 60%;
+    width: 100%;
+    border: 1px black solid;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.player_hand {
+    height: 40%;
+    width: 100%;
+    border: 1px black solid;
+    display: flex;
+}
+
+.sidebar {
+    display: flex;
+    align-items: center;
+    flex-direction: column-reverse;
+    width: 10%;
+    height: 100%;
+}
+
+.case {
+    width: 100%;
+    height: 33%;
+    border: 1px black solid;
+}
+
+.end_turn {
+    width: 100%;
+    height: 33%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.end_turn button {
+    width: 40%;
+    height: 15%;
+    margin: auto; 
+}
+
+.agent {
+    border: 1px black solid;
+    height: 100%;
     width: 15%;
-    margin: 10px;
-    border: 1px solid black;
-    height: 100px;
+}
+
+.infobar {
+    display: flex;
+    height: 20%;
+    align-items: flex-start;
+    flex-direction: row;
+}
+
+.hpCounter {
+    width: 33%;
+    height: 100%;
+    text-align: center;
+    border: 1px black solid;
+}
+
+.slot1 {
+    width: 33%;
+    height: 100%;
+    text-align: center;
+    border: 1px black solid;
+}
+
+.slot2 {
+    width: 33%;
+    height: 100%;
+    text-align: center;
+    border: 1px black solid;
 }

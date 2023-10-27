@@ -106,18 +106,22 @@ function MakeAgents(team) {
         div.id = `agent${i}`
         document.querySelector('.player_cards').appendChild(div);
 
+        let infobar = document.createElement('div');
+        infobar.classList.add('infobar')
+        document.querySelector(`#agent${i}`).appendChild(infobar);
+        
         let hp = document.createElement('div');
         hp.classList.add('hpCounter');
         hp.innerHTML = agent.hp;
-        document.querySelector(`#agent${i}`).appendChild(hp)
+        document.querySelector(`#agent${i} > .infobar`).appendChild(hp)
 
         let slot1 = document.createElement('div');
         slot1.classList.add('slot1');
-        document.querySelector(`#agent${i}`).appendChild(slot1)
+        document.querySelector(`#agent${i} > .infobar`).appendChild(slot1)
 
         let slot2 = document.createElement('div');
         slot2.classList.add('slot2');
-        document.querySelector(`#agent${i}`).appendChild(slot2);
+        document.querySelector(`#agent${i} > .infobar`).appendChild(slot2);
         
         console.log(agent.slot2);
     }
