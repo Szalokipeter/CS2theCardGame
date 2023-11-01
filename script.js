@@ -95,9 +95,9 @@ function MakeAgents(team) {
     for (let i = 1; i < 6; i++) {
         let agent;
         if (playerTeam == 'T') {
-            agent = new Agent(team, new Weapon(2, 0, 1, 8, 'img/Glock.img', (wp) => this.WeaponClicked(wp)), 'img/TAgent.img', (ag) => this.AgentClicked(ag));
+            agent = new Agent(team, 'img/TAgent.img');
         } else {
-            agent = new Agent(team, new Weapon(3, 0, 1, 4, 'img/USP.img', (wp) => this.WeaponClicked(wp)), 'img/CTAgent.img', (ag) => this.AgentClicked(ag));
+            agent = new Agent(team, 'img/CTAgent.img');
         }
         Ourboard.push(agent);
 

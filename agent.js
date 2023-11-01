@@ -3,11 +3,17 @@ import { Weapon } from "./weapon.js";
 
 export class Agent{ 
     //ez nem egy kártyalap
-    constructor(team, StartingPistol, picpath, clicked) {
+    constructor(team, picpath, clicked) {
         this.team = team;
         this.imagepath = picpath;
         this.hp = 10;
         this.slot1 = undefined;
+        if (team == 'T'){
+            this.slot2 = new Weapon(2, 0, 1, 8, 'img/Glock.img');
+        }
+        else {
+            this.slot2 = new Weapon(3, 0, 1, 4, 'img/USP.img');
+        }
         this.slot2 = StartingPistol;
         this.AttackValue = StartingPistol.damage;
     }
