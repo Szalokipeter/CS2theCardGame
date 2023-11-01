@@ -155,8 +155,19 @@ function generateEnemyCase(playerTeam) {
             enemyCase.splice(i, 1);
         }
     }
+    //shuffle
+    for (var i = enemyCase.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = enemyCase[i];
+        enemyCase[i] = enemyCase[j];
+        enemyCase[j] = temp;
+    }
     return enemyCase;
 }
+
+
+
+
 function Crit(){
     
 }
