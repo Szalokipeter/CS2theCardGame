@@ -14,10 +14,10 @@ export class Agent{
         else {
             this.slot2 = new Weapon(3, 0, 1, 4, 'img/USP.img');
         }
-        this.AttackValue = this.slot2.damage;
+        this.attackValue = this.slot2.damage;
     }
     Attack(target){
-        target.hp -= this.AttackValue;
+        target.hp -= this.attackValue;
         if (this.slot1){
             this.slot1.durability -= 1;
         }

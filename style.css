@@ -82,32 +82,18 @@
     border: 1px black solid;
     height: 100%;
     width: 15%;
+    display: flex;
+    flex-direction: column-reverse;
 }
 
 .infobar {
-    display: flex;
-    height: 20%;
-    align-items: flex-start;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    height: 40%;
 }
 
-.hpCounter {
-    width: 33%;
-    height: 100%;
+.hpCounter, .slot1, .slot2, .attackValue {
     text-align: center;
-    border: 1px black solid;
-}
-
-.slot1 {
-    width: 33%;
-    height: 100%;
-    text-align: center;
-    border: 1px black solid;
-}
-
-.slot2 {
-    width: 33%;
-    height: 100%;
-    text-align: center;
-    border: 1px black solid;
+    border: 1px solid black;
 }
