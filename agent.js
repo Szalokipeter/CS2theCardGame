@@ -3,7 +3,7 @@ import { Weapon } from "./weapon.js";
 
 export class Agent{ 
     //ez nem egy kártyalap
-    constructor(team, picpath, clicked) {
+    constructor(team, picpath) {
         this.team = team;
         this.imagepath = picpath;
         this.hp = 10;
