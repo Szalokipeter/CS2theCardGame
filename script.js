@@ -72,14 +72,7 @@ let Ourboard = [];
 let playerTeam = DecideTeam();
 let playerCase = generateCase(playerTeam);
 let selectedAgent = undefined;
-let EnemyWeapons = [
-    new Weapon(8,8,0,2, "img/AWP.png", undefined),
-    new Weapon(6,5,0,4, "img/AK47.png", undefined),
-    new Weapon(4,3,0,6, "img/MP5SD.png", undefined),
-    new Weapon(4,5,0,4, "img/GALIL.png", undefined),
-    new Weapon(2,2,1,10, "img/FIVESEVEN.png", undefined)
-    
-];
+let EnemyWeapons = generateEnemyCase(playerTeam);
 
 MakeAgents(playerTeam);
 
@@ -144,6 +137,20 @@ function generateCase(team) {
     return generatedCase;
 }
 
+function generateEnemyCase(playerTeam) {
+    let enemyCase = [];
+    if (playerTeam == 'T') {
+        enemyCase = CTCards;
+    } else {
+        enemyCase = TCards;
+    }
+    for (let i = 0; i < enemyCase.length; i++) {
+        if(enemyCase[i] instanceof Item) {
+            enemyCase.splice(i, 1);
+        }
+    }
+    return enemyCase;
+}
 function Crit(){
     
 }

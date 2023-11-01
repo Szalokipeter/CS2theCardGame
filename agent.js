@@ -14,8 +14,7 @@ export class Agent{
         else {
             this.slot2 = new Weapon(3, 0, 1, 4, 'img/USP.img');
         }
-        this.slot2 = StartingPistol;
-        this.AttackValue = StartingPistol.damage;
+        this.AttackValue = this.slot2.damage;
     }
     Attack(target){
         target.hp -= this.AttackValue;
