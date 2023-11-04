@@ -97,3 +97,21 @@
     text-align: center;
     border: 1px solid black;
 }
+
+.láda{
+    width: 100%;
+    height: 50%;
+}
+#case{
+    width: 100%;
+    height: 100%;
+    background-image: url(img/case.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.money_counter{
+    width: 100%;
+    height: 50%;
+    margin: 0.5vw;
+    
+}

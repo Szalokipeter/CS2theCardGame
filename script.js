@@ -72,9 +72,21 @@ let Ourboard = [];
 let playerTeam = DecideTeam();
 let playerCase = generateCase(playerTeam);
 let selectedAgent = undefined;
-let EnemyWeapons = generateEnemyCase(playerTeam);
+let Ourhand = [];
+let currentmaxmoney = 1;
+let currentmoney = 1;
+let fatigue = 0;
 
 MakeAgents(playerTeam);
+
+StartGame();
+
+document.querySelector('#EndButton').addEventListener("click", EndTurn);
+document.querySelector('#case').addEventListener("click", CaseClicked);
+
+UpdateMoney();
+
+
 
 function DecideTeam() {
     if (Math.random() > 0.5) {
@@ -122,16 +134,16 @@ function MakeAgents(team) {
         attackValue.innerHTML = agent.attackValue;
         document.querySelector(`#agent${i} > .infobar`).appendChild(attackValue);
         
-        console.log(agent.slot2);
     }
 }
 
 function generateCase(team) {
     let generatedCase = []
-    if (team = 'T') {
-        generatedCase = TCards;
-    } else {
+    if (team == 'CT') {
         generatedCase = CTCards;
+    } 
+    else {
+        generatedCase = TCards;
     }
     //shuffle
     for (var i = generatedCase.length - 1; i > 0; i--) {
@@ -142,31 +154,6 @@ function generateCase(team) {
     }
     return generatedCase;
 }
-
-function generateEnemyCase(playerTeam) {
-    let enemyCase = [];
-    if (playerTeam == 'T') {
-        enemyCase = CTCards;
-    } else {
-        enemyCase = TCards;
-    }
-    for (let i = 0; i < enemyCase.length; i++) {
-        if(enemyCase[i] instanceof Item) {
-            enemyCase.splice(i, 1);
-        }
-    }
-    //shuffle
-    for (var i = enemyCase.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = enemyCase[i];
-        enemyCase[i] = enemyCase[j];
-        enemyCase[j] = temp;
-    }
-    return enemyCase;
-}
-
-
-
 
 function Crit(){
     
@@ -194,5 +181,72 @@ function AgentClicked(ag){
     else{
         agentselected = ag;
     }
+}
+
+function CaseClicked(){
+    if(currentmoney >= 2){
+        currentmoney -= 2;
+        //Ha akarunk animot ide rakjuk
+        DrawCard();
+        UpdateMoney();
+    }
+    else{
+        alert("Nincs elég zsetta papi.")
+    }
+
+}
+function DrawCard(){
+    if(playerCase.length != 0){
+        let tempcard = playerCase[0];
+        Ourhand.push(tempcard);
+        playerCase.splice(0,1);
+    }
+    else{
+        Fatigue();
+    }
+    console.log(playerCase);
+    console.log(Ourhand);
+    
+}
+
+function StartGame(){
+    DrawCard();
+    DrawCard();
+    DrawCard();
+    DrawCard();
+    DrawCard();
+    console.log(Ourhand);
+}
+
+function StartTurn(){
+    DrawCard();
+    currentmaxmoney++;
+    currentmoney = currentmaxmoney;
+    UpdateMoney();
+    console.log(currentmoney);
+}
+
+function EndTurn(){
+    //existing enemys will attack
+    //THEN enemys will spawn
+    StartTurn();
+}
+
+function UpdateMoney(){
+    let moneydiv = document.querySelector(".money_counter");
+    moneydiv.innerHTML = `${currentmoney}$`;
+}
+
+function Fatigue(){
+    fatigue++;
+    alert("Fatigue Level Increased!")
+    console.log(fatigue);
+}
+
+function UpdateHand(){
+
+}
+function UpdateBoard(){
+
 }
 

@@ -17,11 +17,24 @@ export class Agent{
         this.attackValue = this.slot2.damage;
     }
     Attack(target){
-        target.hp -= this.attackValue;
-        if (this.slot1){
+        if(this.slot1 != undefined && this.slot2 != undefined){
+            target.hp -= (this.slot1.damage+ this.slot2.damage);
+            this.slot1
+        }
+        else if(this.slot1 != undefined && this.slot2 == undefined){
+            target.hp -= this.slot1.damage;
+        }
+        else if (this.slot1 == undefined && this.slot2 != undefined){
+            target.hp -=this.slot2.damage;
+        }
+        else{
+            alert("The minion dosent have any attack value!")
+        }
+        
+        if (this.slot1 != undefined){
             this.slot1.durability -= 1;
         }
-        if(this.slot2){
+        if(this.slot2 != undefined){
             this.slot2.durability -= 1;
         }
     }
