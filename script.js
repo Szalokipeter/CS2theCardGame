@@ -4,78 +4,90 @@ import { Item } from "./item.js";
 import { Weapon } from "./weapon.js";
 import { Enemy } from "./enemy.js";
 
-
-
-
 let CTCards = [
-    new Weapon(8,8,0,2, "img/AWP.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(5,5,0,5, "img/M4A4.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(6,5,0,4, "img/M4A1.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(4,3,0,6, "img/MP5SD.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(2,2,1,10, "img/FIVESEVEN.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(4,2,1,2, "img/CZ75.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(4,3,0,3, "img/MP9.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(6,6,0,5, "img/AUG.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(8,8,0,2, "img/AWP.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(5,5,0,5, "img/M4A4.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(6,5,0,4, "img/M4A1.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(4,3,0,6, "img/MP5SD.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(2,2,1,10, "img/FIVESEVEN.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(4,2,1,2, "img/CZ75.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(4,3,0,3, "img/MP9.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(6,6,0,5, "img/AUG.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(5,5,0,5, "img/M4A4.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(6,5,0,4, "img/M4A1.png", (ag) => this.WeaponClicked(ag)),
-    new Item("Molotov", 2, "img/incendiary", (item) => this.ItemClicked(item)),
-    new Item("HE", 2, "img/HE", (item) => this.ItemClicked(item)),
-    new Item("Flash", 1, "img/flash", (item) => this.ItemClicked(item)),
-    new Item("Smoke", 2, "img/Smoke", (item) => this.ItemClicked(item)),
-    new Item("Heal", 3, "img/heal", (item) => this.ItemClicked(item)),
-    new Item("Molotov", 2, "img/incendiary", (item) => this.ItemClicked(item)),
-    new Item("HE", 2, "img/HE", (item) => this.ItemClicked(item)),
-    new Item("Flash", 1, "img/flash", (item) => this.ItemClicked(item)),
-    new Item("Smoke", 2, "img/Smoke", (item) => this.ItemClicked(item)),
-    new Item("Heal", 3, "img/heal", (item) => this.ItemClicked(item))
+    new Weapon(8,8,0,2, "img/AWP.png"),
+    new Weapon(5,5,0,5, "img/M4A4.png"),
+    new Weapon(6,5,0,4, "img/M4A1.png"),
+    new Weapon(4,3,0,6, "img/MP5SD.png"),
+    new Weapon(2,2,1,10, "img/FIVESEVEN.png"),
+    new Weapon(4,2,1,2, "img/CZ75.png"),
+    new Weapon(4,3,0,3, "img/MP9.png"),
+    new Weapon(6,6,0,5, "img/AUG.png"),
+    new Weapon(8,8,0,2, "img/AWP.png"),
+    new Weapon(5,5,0,5, "img/M4A4.png"),
+    new Weapon(6,5,0,4, "img/M4A1.png"),
+    new Weapon(4,3,0,6, "img/MP5SD.png"),
+    new Weapon(2,2,1,10, "img/FIVESEVEN.png"),
+    new Weapon(4,2,1,2, "img/CZ75.png"),
+    new Weapon(4,3,0,3, "img/MP9.png"),
+    new Weapon(6,6,0,5, "img/AUG.png"),
+    new Weapon(5,5,0,5, "img/M4A4.png"),
+    new Weapon(6,5,0,4, "img/M4A1.png"),
+    new Item("Molotov", 2, "img/incendiary"),
+    new Item("HE", 2, "img/HE"),
+    new Item("Flash", 1, "img/flash"),
+    new Item("Smoke", 2, "img/Smoke"),
+    new Item("Heal", 3, "img/heal"),
+    new Item("Molotov", 2, "img/incendiary"),
+    new Item("HE", 2, "img/HE"),
+    new Item("Flash", 1, "img/flash"),
+    new Item("Smoke", 2, "img/Smoke"),
+    new Item("Heal", 3, "img/heal")
 ];
 let TCards = [
-    new Weapon(8,8,0,2, "img/AWP.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(6,5,0,5, "img/AK47.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(4,5,0,4, "img/GALIL.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(4,3,0,7, "img/MP7.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(3,2,1,8, "img/TEC9.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(6,2,1,2, "img/DESERT.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(4,3,0,4, "img/MAC10.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(6,6,0,5, "img/SG.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(8,8,0,2, "img/AWP.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(6,5,0,5, "img/AK47.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(4,5,0,4, "img/GALIL.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(4,3,0,7, "img/MP7.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(3,2,1,8, "img/TEC9.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(6,2,1,2, "img/DESERT.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(4,3,0,4, "img/MAC10.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(6,6,0,5, "img/SG.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(6,5,0,5, "img/AK47.png", (ag) => this.WeaponClicked(ag)),
-    new Weapon(4,5,0,4, "img/GALIL.png", (ag) => this.WeaponClicked(ag)),
-    new Item("Molotov", 2, "img/incendiary", (item) => this.ItemClicked(item)),
-    new Item("HE", 2, "img/HE", (item) => this.ItemClicked(item)),
-    new Item("Flash", 1, "img/flash", (item) => this.ItemClicked(item)),
-    new Item("Smoke", 2, "img/Smoke", (item) => this.ItemClicked(item)),
-    new Item("Heal", 3, "img/heal", (item) => this.ItemClicked(item)),
-    new Item("Molotov", 2, "img/incendiary", (item) => this.ItemClicked(item)),
-    new Item("HE", 2, "img/HE", (item) => this.ItemClicked(item)),
-    new Item("Flash", 1, "img/flash", (item) => this.ItemClicked(item)),
-    new Item("Smoke", 2, "img/Smoke", (item) => this.ItemClicked(item)),
-    new Item("Heal", 3, "img/heal", (item) => this.ItemClicked(item))
+    new Weapon(8,8,0,2, "img/AWP.png"),
+    new Weapon(6,5,0,5, "img/AK47.png"),
+    new Weapon(4,5,0,4, "img/GALIL.png"),
+    new Weapon(4,3,0,7, "img/MP7.png"),
+    new Weapon(3,2,1,8, "img/TEC9.png"),
+    new Weapon(6,2,1,2, "img/DESERT.png"),
+    new Weapon(4,3,0,4, "img/MAC10.png"),
+    new Weapon(6,6,0,5, "img/SG.png"),
+    new Weapon(8,8,0,2, "img/AWP.png"),
+    new Weapon(6,5,0,5, "img/AK47.png"),
+    new Weapon(4,5,0,4, "img/GALIL.png"),
+    new Weapon(4,3,0,7, "img/MP7.png"),
+    new Weapon(3,2,1,8, "img/TEC9.png"),
+    new Weapon(6,2,1,2, "img/DESERT.png"),
+    new Weapon(4,3,0,4, "img/MAC10.png"),
+    new Weapon(6,6,0,5, "img/SG.png"),
+    new Weapon(6,5,0,5, "img/AK47.png"),
+    new Weapon(4,5,0,4, "img/GALIL.png"),
+    new Item("Molotov", 2, "img/incendiary"),
+    new Item("HE", 2, "img/HE"),
+    new Item("Flash", 1, "img/flash"),
+    new Item("Smoke", 2, "img/Smoke"),
+    new Item("Heal", 3, "img/heal"),
+    new Item("Molotov", 2, "img/incendiary"),
+    new Item("HE", 2, "img/HE"),
+    new Item("Flash", 1, "img/flash"),
+    new Item("Smoke", 2, "img/Smoke"),
+    new Item("Heal", 3, "img/heal")
+];
+let EnemyWeapons = [
+    new Weapon(8,8,0,2, "img/AWP.png", undefined),
+    new Weapon(6,5,0,4, "img/AK47.png", undefined),
+    new Weapon(4,5,0,4, "img/GALIL.png", undefined),
+    new Weapon(3,2,1,8, "img/TEC9.png", undefined),
+    new Weapon(4,3,0,2, "img/SAWNOFF.png", undefined),
+    new Weapon(4,3,0,3, "img/MP9.png", undefined),
+    new Weapon(6,2,1,2, "img/DESERT.png", undefined),
+    new Weapon(6,5,0,5, "img/AK47.png", undefined),
+    new Weapon(4,5,0,4, "img/GALIL.png", undefined),
+    new Weapon(2,0,1,8, "img/Glock.png", undefined)
 ];
 let Enemyboard = [];
 let Ourboard = [];
 let playerTeam = DecideTeam();
 let playerCase = generateCase(playerTeam);
 let selectedAgent = undefined;
+let selectedItem = undefined;
+let selectedWeapon = undefined;
 let Ourhand = [];
 let currentmaxmoney = 1;
 let currentmoney = 1;
 let fatigue = 0;
+let bossspawned = false;
 
 MakeAgents(playerTeam);
 
@@ -100,9 +112,9 @@ function MakeAgents(team) {
     for (let i = 1; i < 6; i++) {
         let agent;
         if (playerTeam == 'T') {
-            agent = new Agent(team, 'img/TAgent.img');
+            agent = new Agent(team, 'img/TAgent.img', `agent${i}`);
         } else {
-            agent = new Agent(team, 'img/CTAgent.img');
+            agent = new Agent(team, 'img/CTAgent.img', `agent${i}`);
         }
         Ourboard.push(agent);
 
@@ -133,7 +145,7 @@ function MakeAgents(team) {
         attackValue.classList.add('attackValue');
         attackValue.innerHTML = agent.attackValue;
         document.querySelector(`#agent${i} > .infobar`).appendChild(attackValue);
-        
+        div.addEventListener("click", AgentClicked);
     }
 }
 
@@ -155,33 +167,37 @@ function generateCase(team) {
     return generatedCase;
 }
 
-function Crit(){
+function WeaponClicked(event){
+    selectedAgent = undefined;
     
 }
 
-function WeaponClicked(wp){
+function ItemClicked(event){
     selectedAgent = undefined;
 
 }
 
-function ItemClicked(item){
-    selectedAgent = undefined;
+function AgentClicked(event){
 
+    let clickedAgent = Ourboard.find(agent => agent.id === event.target.id);
+    if (selectedAgent === clickedAgent) {
+        selectedAgent = undefined;
+    } 
+    else {
+        selectedAgent = clickedAgent;
+    }
 }
-
-function AgentClicked(ag){
-    if(selectedAgent){
-        if(selectedAgent == ag){
+function EnemyClicked(event) {
+    const clickedEnemy = Enemyboard.find(enemy => enemy.id === event.target.id);
+    if (selectedAgent instanceof Agent) {
+            console.log(clickedEnemy)
+            selectedAgent.Attack(clickedEnemy);
             selectedAgent = undefined;
-        }
-        else{
-            selectedAgent = ag;
+        } 
+        else {
+            console.log("No Agent Selected!");
         }
     }
-    else{
-        agentselected = ag;
-    }
-}
 
 function CaseClicked(){
     if(currentmoney >= 2){
@@ -204,9 +220,23 @@ function DrawCard(){
     else{
         Fatigue();
     }
-    console.log(playerCase);
-    console.log(Ourhand);
     
+    // TODO: Megcsinálni a html elemeket és berakni a "player_hand" divbe
+
+
+
+
+}
+function UpdateHand(playedcard){
+    let indexofplayedcard = Ourhand.indexOf(playedcard);
+    Ourhand.splice(indexofplayedcard, 1);
+    //TODO: Kivenni a Card div-et a kézből
+}
+function UpdateOurBoard(){
+    //TODO: Levenni a meghalt agenteket újraindexelés nem kell, mert újat nem summonolhatunk.
+}
+function UpdateEnemyBoard(){
+    //TODO: Levenni a meghalt enemyket, "újraindexelni" az enemyket
 }
 
 function StartGame(){
@@ -215,7 +245,6 @@ function StartGame(){
     DrawCard();
     DrawCard();
     DrawCard();
-    console.log(Ourhand);
 }
 
 function StartTurn(){
@@ -223,12 +252,13 @@ function StartTurn(){
     currentmaxmoney++;
     currentmoney = currentmaxmoney;
     UpdateMoney();
-    console.log(currentmoney);
 }
 
 function EndTurn(){
+    EnemysAttack();
     //existing enemys will attack
     //THEN enemys will spawn
+    SpawnEnemy();
     StartTurn();
 }
 
@@ -239,14 +269,171 @@ function UpdateMoney(){
 
 function Fatigue(){
     fatigue++;
-    alert("Fatigue Level Increased!")
-    console.log(fatigue);
+    console.log("Fatigue Level Increased!");
 }
 
-function UpdateHand(){
+function SpawnEnemy(){
+    let spawnboss = Math.floor(Math.random()*20);
+    if(bossspawned == false && spawnboss == 19){
+        SpawnBoss();
+        bossspawned = true;
+    }
+    else if (bossspawned == false){
+    let r = Math.floor((Math.random()*10));
+    let enemyweapon = EnemyWeapons[r];
+    let enemyhp = Math.floor((Math.random()+1)*5);
+    let i = Enemyboard.length+1;
+    
+    let enemy;
+    if(enemyweapon.slotMain == true){
+        enemy = new Enemy(enemyhp, enemyweapon, undefined, "img/enemy.png", `enemy${i}`);
+        Enemyboard.push(enemy);
+    }
+    else{
+        enemy = new Enemy(enemyhp, undefined, enemyweapon, "img/enemy.png", `enemy${i}`);
+        Enemyboard.push(enemy);
+    }
+    console.log(Enemyboard);
+    
+    let div = document.createElement('div');
+    div.classList.add('enemy');
+    div.id = `enemy${i}`
+    document.querySelector('.enemy_cards').appendChild(div);
+
+    let infobar = document.createElement('div');
+    infobar.classList.add('infobar')
+    document.querySelector(`#enemy${i}`).appendChild(infobar);
+    
+    let slot1 = document.createElement('div');
+    slot1.classList.add('slot1');
+    document.querySelector(`#enemy${i} > .infobar`).appendChild(slot1)
+    
+    let slot2 = document.createElement('div');
+    slot2.classList.add('slot2');
+    document.querySelector(`#enemy${i} > .infobar`).appendChild(slot2);
+    
+    let hp = document.createElement('div');
+    hp.classList.add('hpCounter');
+    hp.innerHTML = enemy.hp;
+    document.querySelector(`#enemy${i} > .infobar`).appendChild(hp);
+
+
+    let attackValue = document.createElement('div');
+    attackValue.classList.add('attackValue');
+    attackValue.innerHTML = enemy.attackValue;
+    document.querySelector(`#enemy${i} > .infobar`).appendChild(attackValue);
+    div.addEventListener("click", EnemyClicked);
+    }
+}
+
+function SpawnBoss(){
+    let i = Enemyboard.length+1;
+    let bossweapon = new Weapon(6,5,0,10, "img/AK47.png", undefined);
+    let bosssecondary = new Weapon(2,0,1,10, "img/Glock.png", undefined);
+    let enemy = new Enemy(10, bossweapon, undefined, "img/mini.png", `enemy${i}`);
+    Enemyboard.push(enemy);
+
+    let div = document.createElement('div');
+    div.classList.add('enemy');
+    div.id = `enemy${i}`
+    document.querySelector('.enemy_cards').appendChild(div);
+
+    let infobar = document.createElement('div');
+    infobar.classList.add('infobar')
+    document.querySelector(`#enemy${i}`).appendChild(infobar);
+    
+    let slot1 = document.createElement('div');
+    slot1.classList.add('slot1');
+    document.querySelector(`#enemy${i} > .infobar`).appendChild(slot1)
+    
+    let slot2 = document.createElement('div');
+    slot2.classList.add('slot2');
+    document.querySelector(`#enemy${i} > .infobar`).appendChild(slot2);
+    
+    let hp = document.createElement('div');
+    hp.classList.add('hpCounter');
+    hp.innerHTML = enemy.hp;
+    document.querySelector(`#enemy${i} > .infobar`).appendChild(hp);
+
+
+    let attackValue = document.createElement('div');
+    attackValue.classList.add('attackValue');
+    attackValue.innerHTML = enemy.attackValue;
+    document.querySelector(`#enemy${i} > .infobar`).appendChild(attackValue);
+    div.addEventListener("click", EnemyClicked);
+
+    // and 2 mini-bosses
+    enemy = new Enemy(50, bossweapon, bosssecondary, "img/boss.png", `enemy${i+1}`);
+    Enemyboard.push(enemy);
+
+    div = document.createElement('div');
+    div.classList.add('enemy');
+    div.id = `enemy${i+1}`
+    document.querySelector('.enemy_cards').appendChild(div);
+
+    infobar = document.createElement('div');
+    infobar.classList.add('infobar')
+    document.querySelector(`#enemy${i+1}`).appendChild(infobar);
+    
+    slot1 = document.createElement('div');
+    slot1.classList.add('slot1');
+    document.querySelector(`#enemy${i+1} > .infobar`).appendChild(slot1)
+    
+    slot2 = document.createElement('div');
+    slot2.classList.add('slot2');
+    document.querySelector(`#enemy${i+1} > .infobar`).appendChild(slot2);
+    
+    hp = document.createElement('div');
+    hp.classList.add('hpCounter');
+    hp.innerHTML = enemy.hp;
+    document.querySelector(`#enemy${i+1} > .infobar`).appendChild(hp);
+
+
+    attackValue = document.createElement('div');
+    attackValue.classList.add('attackValue');
+    attackValue.innerHTML = enemy.attackValue;
+    document.querySelector(`#enemy${i+1} > .infobar`).appendChild(attackValue);
+    div.addEventListener("click", EnemyClicked);
+
+
+    enemy = new Enemy(10, bossweapon, undefined, "img/mini.png", `enemy${i+2}`);
+    Enemyboard.push(enemy);
+
+    div = document.createElement('div');
+    div.classList.add('enemy');
+    div.id = `enemy${i+2}`
+    document.querySelector('.enemy_cards').appendChild(div);
+
+    infobar = document.createElement('div');
+    infobar.classList.add('infobar')
+    document.querySelector(`#enemy${i+2}`).appendChild(infobar);
+    
+    slot1 = document.createElement('div');
+    slot1.classList.add('slot1');
+    document.querySelector(`#enemy${i+2} > .infobar`).appendChild(slot1)
+    
+    slot2 = document.createElement('div');
+    slot2.classList.add('slot2');
+    document.querySelector(`#enemy${i+2} > .infobar`).appendChild(slot2);
+    
+    hp = document.createElement('div');
+    hp.classList.add('hpCounter');
+    hp.innerHTML = enemy.hp;
+    document.querySelector(`#enemy${i+2} > .infobar`).appendChild(hp);
+
+
+    attackValue = document.createElement('div');
+    attackValue.classList.add('attackValue');
+    attackValue.innerHTML = enemy.attackValue;
+    document.querySelector(`#enemy${i+2} > .infobar`).appendChild(attackValue);
+    div.addEventListener("click", EnemyClicked);
+
+    console.log(Enemyboard);
+}
+
+function EnemysAttack(){
+    //TODO: enemys attack a random agent
+
+
 
 }
-function UpdateBoard(){
-
-}
-

@@ -3,18 +3,33 @@ import { Weapon } from "./weapon.js";
 
 export class Agent{ 
     //ez nem egy kártyalap
-    constructor(team, picpath) {
+    constructor(team, picpath, id) {
         this.team = team;
         this.imagepath = picpath;
         this.hp = 10;
         this.slot1 = undefined;
+        this.id = id;
         if (team == 'T'){
-            this.slot2 = new Weapon(2, 0, 1, 8, 'img/Glock.img');
+            this.slot2 = new Weapon(2, 0, 1, 8, 'img/Glock.png', undefined);
         }
         else {
-            this.slot2 = new Weapon(3, 0, 1, 4, 'img/USP.img');
+            this.slot2 = new Weapon(3, 0, 1, 4, 'img/USP.png', undefined);
         }
-        this.attackValue = this.slot2.damage;
+        
+        if(this.slot1 != undefined && this.slot2 != undefined){
+            this.attackValue = (this.slot1.damage + this.slot2.damage);
+        }
+        else if(this.slot1 != undefined && this.slot2 == undefined){
+            this.attackValue = this.slot1.damage;
+        }
+        else if (this.slot1 == undefined && this.slot2 != undefined){
+            this.attackValue =this.slot2.damage;
+        }
+        else{
+            this.attackValue = 0;
+        }
+
+
     }
     Attack(target){
         if(this.slot1 != undefined && this.slot2 != undefined){

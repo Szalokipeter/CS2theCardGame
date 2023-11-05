@@ -17,17 +17,28 @@
     height: 100%;
 }
 
-.enemy {
+.enemy_board {
     width: 100%;
     height: 60%;
 }
 
 .enemy_cards {
+    margin: 0;
+    height: 100%;
     width: 100%;
     border: 1px black solid;
-    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
 }
-
+.enemy {
+    border: 1px black solid;
+    height: 100%;
+    width: 15%;
+    display: flex;
+    flex-direction: column-reverse;
+}
 .player {
     width: 100%;
     height: 40%;
@@ -113,5 +124,9 @@
     width: 100%;
     height: 50%;
     margin: 0.5vw;
+    
+}
+
+.CardInHand{
     
 }
