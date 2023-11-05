@@ -6,7 +6,7 @@ export class Agent{
     constructor(team, picpath, id) {
         this.team = team;
         this.imagepath = picpath;
-        this.hp = 10;
+        this.hp = 15;
         this.slot1 = undefined;
         this.id = id;
         if (team == 'T'){
@@ -34,13 +34,15 @@ export class Agent{
     Attack(target){
         if(this.slot1 != undefined && this.slot2 != undefined){
             target.hp -= (this.slot1.damage+ this.slot2.damage);
-            this.slot1
+            this.hp -= target.attackValue;
         }
         else if(this.slot1 != undefined && this.slot2 == undefined){
             target.hp -= this.slot1.damage;
+            this.hp -= target.attackValue;
         }
         else if (this.slot1 == undefined && this.slot2 != undefined){
             target.hp -=this.slot2.damage;
+            this.hp -= target.attackValue;
         }
         else{
             alert("The minion dosent have any attack value!")

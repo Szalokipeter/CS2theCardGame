@@ -83,6 +83,7 @@ let playerCase = generateCase(playerTeam);
 let selectedAgent = undefined;
 let selectedItem = undefined;
 let selectedWeapon = undefined;
+let selectedenemy = undefined;
 let Ourhand = [];
 let currentmaxmoney = 1;
 let currentmoney = 1;
@@ -169,16 +170,32 @@ function generateCase(team) {
 
 function WeaponClicked(event){
     selectedAgent = undefined;
+    selectedItem = undefined;
     
+    let clickedWeapon = Ourhand.find(weapon => weapon.id === event.target.id);
+    if(selectedWeapon === clickedWeapon){
+        selectedWeapon = undefined;
+    }
+    else{
+        selectedItem = clickedItem;
+    }
+
+
 }
 
 function ItemClicked(event){
     selectedAgent = undefined;
-
+    selectedWeapon = undefined;
+    let clickedItem = Ourhand.find(item => item.id === event.target.id);
+    if(selectedItem === clickedItem){
+        selectedItem = undefined;
+    }
+    else{
+        selectedItem = clickedItem;
+    }
 }
 
 function AgentClicked(event){
-
     let clickedAgent = Ourboard.find(agent => agent.id === event.target.id);
     if (selectedAgent === clickedAgent) {
         selectedAgent = undefined;
@@ -186,18 +203,42 @@ function AgentClicked(event){
     else {
         selectedAgent = clickedAgent;
     }
+
+
+    if(selectedAgent && selectedItem){
+        console.log("Item played.");
+        //TODO: Item effektje az agentre kerül.
+        UpdateHand(selectedItem);
+        selectedItem = undefined;
+    }
+    else if(selectedAgent && selectedWeapon){
+        console.log("Weapon played");
+        //TODO: Rárakni a weapont az Agent megfelelő slotjára.
+        UpdateHand(selectedWeapon);
+        selectedWeapon = undefined;
+    }
 }
 function EnemyClicked(event) {
+    selectedWeapon = undefined;
     const clickedEnemy = Enemyboard.find(enemy => enemy.id === event.target.id);
-    if (selectedAgent instanceof Agent) {
-            console.log(clickedEnemy)
+    selectedenemy = clickedEnemy;
+    if (selectedAgent instanceof Agent && selectedenemy instanceof Enemy) {
             selectedAgent.Attack(clickedEnemy);
             selectedAgent = undefined;
-        } 
-        else {
-            console.log("No Agent Selected!");
-        }
+            UpdateEnemyBoard();
+            UpdateOurBoard();
+    } 
+    else {
+        console.log("No Agent Selected!");
     }
+
+    if(selectedItem && selectedenemy){
+        console.log("Item played on enemy.");
+        //TODO: Az item effektje az Enemy-re kerül
+        UpdateHand(selectedItem);
+        selectedItem = undefined;
+    }
+}
 
 function CaseClicked(){
     if(currentmoney >= 2){
@@ -221,7 +262,7 @@ function DrawCard(){
         Fatigue();
     }
     
-    // TODO: Megcsinálni a html elemeket és berakni a "player_hand" divbe
+    // TODO: Megcsinálni a html elemeket és berakni a "player_hand" divbe eventlistenerrel (itemclicked és weaponclicked)
 
 
 
@@ -230,13 +271,74 @@ function DrawCard(){
 function UpdateHand(playedcard){
     let indexofplayedcard = Ourhand.indexOf(playedcard);
     Ourhand.splice(indexofplayedcard, 1);
-    //TODO: Kivenni a Card div-et a kézből
+
+    const handdiv = document.getElementById(`card${indexofplayedcard+1}`);
+            if (handdiv) {
+                handdiv.remove();
+            }
+    let i = 1;
+    Ourhand.forEach(card =>{
+        const handdivI = document.getElementById(card.id);
+        card.id = `card${i}`;
+        handdivI.id = `card${i}`;
+        i++;
+    });
 }
 function UpdateOurBoard(){
-    //TODO: Levenni a meghalt agenteket újraindexelés nem kell, mert újat nem summonolhatunk.
+    Ourboard.forEach(agent => {
+        if(agent.hp <= 0){
+            let index = Ourboard.indexOf(agent);
+            Ourboard.splice(index, 1);
+
+            const agentDiv = document.getElementById(agent.id);
+            if (agentDiv) {
+                agentDiv.remove();
+            }
+        }
+        else {
+            const agentDiv = document.getElementById(agent.id);
+            if (agentDiv) {
+                const healthCounter = agentDiv.querySelector('.hpCounter');
+                if (healthCounter) {
+                    healthCounter.textContent = agent.hp;
+                }
+            }
+        }
+
+
+    });
+    GameEndedcheck();
 }
 function UpdateEnemyBoard(){
-    //TODO: Levenni a meghalt enemyket, "újraindexelni" az enemyket
+    Enemyboard.forEach(enemy => {
+        if(enemy.hp <= 0){
+            let index = Enemyboard.indexOf(enemy);
+            Enemyboard.splice(index, 1);
+
+            const enemydiv = document.getElementById(enemy.id);
+            if (enemydiv) {
+                enemydiv.remove();
+            }
+        }
+        else {
+            const enemydiv = document.getElementById(enemy.id);
+            if (enemydiv) {
+                const healthCounter = enemydiv.querySelector('.hpCounter');
+                if (healthCounter) {
+                    healthCounter.textContent = enemy.hp;
+                }
+            }
+        }
+    });
+    GameEndedcheck();
+
+    let i = 1;
+    Enemyboard.forEach(enemy =>{
+        const enemydiv = document.getElementById(enemy.id);
+        enemy.id = `enemy${i}`;
+        enemydiv.id = `enemy${i}`;
+        i++;
+    });
 }
 
 function StartGame(){
@@ -273,12 +375,15 @@ function Fatigue(){
 }
 
 function SpawnEnemy(){
-    let spawnboss = Math.floor(Math.random()*20);
-    if(bossspawned == false && spawnboss == 19){
-        SpawnBoss();
-        bossspawned = true;
+    UpdateEnemyBoard();
+    if(Enemyboard.length <= 4){
+        let spawnboss = Math.floor(Math.random()*20);
+        if(bossspawned == false && spawnboss == 19){
+            SpawnBoss();
+            bossspawned = true;
+        }
     }
-    else if (bossspawned == false){
+    if (bossspawned == false && Enemyboard.length < 7){
     let r = Math.floor((Math.random()*10));
     let enemyweapon = EnemyWeapons[r];
     let enemyhp = Math.floor((Math.random()+1)*5);
@@ -293,7 +398,6 @@ function SpawnEnemy(){
         enemy = new Enemy(enemyhp, undefined, enemyweapon, "img/enemy.png", `enemy${i}`);
         Enemyboard.push(enemy);
     }
-    console.log(Enemyboard);
     
     let div = document.createElement('div');
     div.classList.add('enemy');
@@ -327,6 +431,7 @@ function SpawnEnemy(){
 }
 
 function SpawnBoss(){
+    UpdateEnemyBoard();
     let i = Enemyboard.length+1;
     let bossweapon = new Weapon(6,5,0,10, "img/AK47.png", undefined);
     let bosssecondary = new Weapon(2,0,1,10, "img/Glock.png", undefined);
@@ -363,7 +468,7 @@ function SpawnBoss(){
     div.addEventListener("click", EnemyClicked);
 
     // and 2 mini-bosses
-    enemy = new Enemy(50, bossweapon, bosssecondary, "img/boss.png", `enemy${i+1}`);
+    enemy = new Enemy(20, bossweapon, bosssecondary, "img/boss.png", `enemy${i+1}`);
     Enemyboard.push(enemy);
 
     div = document.createElement('div');
@@ -435,5 +540,18 @@ function EnemysAttack(){
     //TODO: enemys attack a random agent
 
 
+    UpdateEnemyBoard();
+    UpdateOurBoard();
+}
 
+function GameEndedcheck(){
+    if(Ourboard.length == 0 && bossspawned == true && Enemyboard.length == 0){
+        alert("Draw.")
+    }
+    else if(Ourboard.length == 0){
+        alert("You lost lol");
+    }
+    else if(bossspawned == true && Enemyboard.length == 0){
+        alert("You won... nothing.")
+    }
 }
