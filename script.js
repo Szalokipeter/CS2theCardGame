@@ -281,18 +281,18 @@ function DrawCard(){
     
         let damage = document.createElement('div');
         damage.classList.add('damage');
-        damage.innerHTML = drawnCard.damage;
+        damage.innerHTML = `Damage: ${drawnCard.damage}`;
         document.querySelector(`#item${itemNumber} > .infobar_item`).appendChild(damage)
     
         let durability = document.createElement('div');
         durability.classList.add('durability');
-        durability.innerHTML = drawnCard.durability;
+        durability.innerHTML = `Durability: ${drawnCard.durability}`;
         document.querySelector(`#item${itemNumber} > .infobar_item`).appendChild(durability);
         }
     
         let cost = document.createElement('div');
         cost.classList.add('cost');
-        cost.innerHTML = drawnCard.cost;
+        cost.innerHTML = `Cost: ${drawnCard.cost}`;
         document.querySelector(`#item${itemNumber} > .infobar_item`).appendChild(cost);
         
     }
