@@ -89,6 +89,7 @@ let currentmaxmoney = 1;
 let currentmoney = 1;
 let fatigue = 0;
 let bossspawned = false;
+let itemNumber = 0; 
 
 MakeAgents(playerTeam);
 
@@ -254,16 +255,52 @@ function CaseClicked(){
 }
 function DrawCard(){
     if(playerCase.length != 0){
-        let tempcard = playerCase[0];
-        Ourhand.push(tempcard);
-        playerCase.splice(0,1);
+        
+        let drawnCard = playerCase.pop();
+    
+        let div = document.createElement('div');
+        div.classList.add('cardInHand');
+        itemNumber += 1;
+        div.id = `item${itemNumber}`
+        document.querySelector('.player_hand').appendChild(div);
+    
+        let infobar = document.createElement('div');
+        infobar.classList.add('infobar_item')
+        document.querySelector(`#item${itemNumber}`).appendChild(infobar);
+        
+    
+        if (drawnCard instanceof Item) {
+            div.addEventListener("clicked", ItemClicked);
+            let type = document.createElement('div');
+            type.classList.add('type');
+            type.innerHTML = drawnCard.type;
+            document.querySelector(`#item${itemNumber} > .infobar_item`).appendChild(type)
+        } else {
+
+        div.addEventListener("click", WeaponClicked);
+    
+        let damage = document.createElement('div');
+        damage.classList.add('damage');
+        damage.innerHTML = drawnCard.damage;
+        document.querySelector(`#item${itemNumber} > .infobar_item`).appendChild(damage)
+    
+        let durability = document.createElement('div');
+        durability.classList.add('durability');
+        durability.innerHTML = drawnCard.durability;
+        document.querySelector(`#item${itemNumber} > .infobar_item`).appendChild(durability);
+        }
+    
+        let cost = document.createElement('div');
+        cost.classList.add('cost');
+        cost.innerHTML = drawnCard.cost;
+        document.querySelector(`#item${itemNumber} > .infobar_item`).appendChild(cost);
+        
     }
     else{
         Fatigue();
     }
     
     // TODO: Megcsinálni a html elemeket és berakni a "player_hand" divbe eventlistenerrel (itemclicked és weaponclicked)
-
 
 
 

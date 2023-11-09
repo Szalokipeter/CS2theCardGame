@@ -59,6 +59,9 @@
     width: 100%;
     border: 1px black solid;
     display: flex;
+        flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .sidebar {
@@ -89,7 +92,7 @@
     margin: auto; 
 }
 
-.agent {
+.agent, .cardInHand{
     border: 1px black solid;
     height: 100%;
     width: 15%;
@@ -104,7 +107,13 @@
     height: 40%;
 }
 
-.hpCounter, .slot1, .slot2, .attackValue {
+.infobar_item {
+    display: flex;
+    flex-direction: column;
+    justify-items: flex-end;
+}
+
+.hpCounter, .slot1, .slot2, .attackValue, .damage, .cost, .durability, .type{
     text-align: center;
     border: 1px solid black;
 }
@@ -124,9 +133,5 @@
     width: 100%;
     height: 50%;
     margin: 0.5vw;
-    
-}
-
-.CardInHand{
     
 }
