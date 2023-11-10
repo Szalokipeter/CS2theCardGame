@@ -89,7 +89,6 @@ let currentmaxmoney = 1;
 let currentmoney = 1;
 let fatigue = 0;
 let bossspawned = false;
-let itemNumber = 0; 
 
 MakeAgents(playerTeam);
 
@@ -173,12 +172,14 @@ function WeaponClicked(event){
     selectedAgent = undefined;
     selectedItem = undefined;
     
-    let clickedWeapon = Ourhand.find(weapon => weapon.id === event.target.id);
+    let clickedWeapon = Ourhand.find(weapon => weapon.id === event.currentTarget.id);
     if(selectedWeapon === clickedWeapon){
         selectedWeapon = undefined;
+        console.log("Weapon unselected.");
     }
     else{
-        selectedItem = clickedItem;
+        selectedWeapon = clickedWeapon;
+        console.log("Weapon selected.");
     }
 
 
@@ -187,17 +188,19 @@ function WeaponClicked(event){
 function ItemClicked(event){
     selectedAgent = undefined;
     selectedWeapon = undefined;
-    let clickedItem = Ourhand.find(item => item.id === event.target.id);
+    let clickedItem = Ourhand.find(item => item.id === event.currentTarget.id);
     if(selectedItem === clickedItem){
         selectedItem = undefined;
+        console.log("Item unselected.");
     }
     else{
         selectedItem = clickedItem;
+        console.log("Item selected.");
     }
 }
 
 function AgentClicked(event){
-    let clickedAgent = Ourboard.find(agent => agent.id === event.target.id);
+    let clickedAgent = Ourboard.find(agent => agent.id === event.currentTarget.id);
     if (selectedAgent === clickedAgent) {
         selectedAgent = undefined;
     } 
@@ -221,7 +224,7 @@ function AgentClicked(event){
 }
 function EnemyClicked(event) {
     selectedWeapon = undefined;
-    const clickedEnemy = Enemyboard.find(enemy => enemy.id === event.target.id);
+    const clickedEnemy = Enemyboard.find(enemy => enemy.id === event.currentTarget.id);
     selectedenemy = clickedEnemy;
     if (selectedAgent instanceof Agent && selectedenemy instanceof Enemy) {
             selectedAgent.Attack(clickedEnemy);
@@ -255,18 +258,20 @@ function CaseClicked(){
 }
 function DrawCard(){
     if(playerCase.length != 0){
-        
-        let drawnCard = playerCase.pop();
+        let drawnCard = playerCase[0];
+        UpdateHandwithoutPlayedCard();
+        drawnCard.id = `item${Ourhand.length+1}`;
+        Ourhand.push(drawnCard);
+        playerCase.splice(0,1);
     
         let div = document.createElement('div');
         div.classList.add('cardInHand');
-        itemNumber += 1;
-        div.id = `item${itemNumber}`
+        div.id = `item${Ourhand.length}`
         document.querySelector('.player_hand').appendChild(div);
     
         let infobar = document.createElement('div');
         infobar.classList.add('infobar_item')
-        document.querySelector(`#item${itemNumber}`).appendChild(infobar);
+        document.querySelector(`#item${Ourhand.length}`).appendChild(infobar);
         
     
         if (drawnCard instanceof Item) {
@@ -274,50 +279,56 @@ function DrawCard(){
             let type = document.createElement('div');
             type.classList.add('type');
             type.innerHTML = drawnCard.type;
-            document.querySelector(`#item${itemNumber} > .infobar_item`).appendChild(type)
-        } else {
+            document.querySelector(`#item${Ourhand.length} > .infobar_item`).appendChild(type)
+        } 
+        else {
 
         div.addEventListener("click", WeaponClicked);
     
         let damage = document.createElement('div');
         damage.classList.add('damage');
         damage.innerHTML = `Damage: ${drawnCard.damage}`;
-        document.querySelector(`#item${itemNumber} > .infobar_item`).appendChild(damage)
+        document.querySelector(`#item${Ourhand.length} > .infobar_item`).appendChild(damage)
     
         let durability = document.createElement('div');
         durability.classList.add('durability');
         durability.innerHTML = `Durability: ${drawnCard.durability}`;
-        document.querySelector(`#item${itemNumber} > .infobar_item`).appendChild(durability);
+        document.querySelector(`#item${Ourhand.length} > .infobar_item`).appendChild(durability);
         }
     
         let cost = document.createElement('div');
         cost.classList.add('cost');
         cost.innerHTML = `Cost: ${drawnCard.cost}`;
-        document.querySelector(`#item${itemNumber} > .infobar_item`).appendChild(cost);
-        
+        document.querySelector(`#item${Ourhand.length} > .infobar_item`).appendChild(cost);
+        console.log(Ourhand);
     }
     else{
         Fatigue();
     }
     
-    // TODO: Megcsinálni a html elemeket és berakni a "player_hand" divbe eventlistenerrel (itemclicked és weaponclicked)
-
-
-
 }
 function UpdateHand(playedcard){
     let indexofplayedcard = Ourhand.indexOf(playedcard);
     Ourhand.splice(indexofplayedcard, 1);
 
-    const handdiv = document.getElementById(`card${indexofplayedcard+1}`);
+    const handdiv = document.getElementById(`item${indexofplayedcard+1}`);
             if (handdiv) {
                 handdiv.remove();
             }
     let i = 1;
     Ourhand.forEach(card =>{
         const handdivI = document.getElementById(card.id);
-        card.id = `card${i}`;
-        handdivI.id = `card${i}`;
+        card.id = `item${i}`;
+        handdivI.id = `item${i}`;
+        i++;
+    });
+}
+function UpdateHandwithoutPlayedCard(){
+    let i = 1;
+    Ourhand.forEach(card =>{
+        const handdivI = document.getElementById(card.id);
+        card.id = `item${i}`;
+        handdivI.id = `item${i}`;
         i++;
     });
 }
