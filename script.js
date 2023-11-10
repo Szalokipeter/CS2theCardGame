@@ -210,16 +210,27 @@ function AgentClicked(event){
 
 
     if(selectedAgent && selectedItem){
-        console.log("Item played.");
-        //TODO: Item effektje az agentre kerül.
-        UpdateHand(selectedItem);
-        selectedItem = undefined;
+        if(selectedItem.cost <= currentmoney)
+        {
+            currentmoney = currentmoney - selectedItem.cost;
+            UpdateMoney();
+            console.log("Item played.");
+            //TODO: Item effektje az agentre kerül.
+            UpdateHand(selectedItem);
+            selectedItem = undefined;
+            selectedAgent = undefined;
+        }
     }
     else if(selectedAgent && selectedWeapon){
-        console.log("Weapon played");
-        //TODO: Rárakni a weapont az Agent megfelelő slotjára.
-        UpdateHand(selectedWeapon);
-        selectedWeapon = undefined;
+        if(selectedWeapon.cost <= currentmoney){
+            currentmoney = currentmoney - selectedWeapon.cost;
+            UpdateMoney();
+            console.log("Weapon played");
+            //TODO: Rárakni a weapont az Agent megfelelő slotjára.
+            UpdateHand(selectedWeapon);
+            selectedWeapon = undefined;
+            selectedAgent = undefined;
+        }
     }
 }
 function EnemyClicked(event) {
@@ -232,15 +243,21 @@ function EnemyClicked(event) {
             UpdateEnemyBoard();
             UpdateOurBoard();
     } 
-    else {
+    else if(!selectedItem){
         console.log("No Agent Selected!");
     }
 
     if(selectedItem && selectedenemy){
-        console.log("Item played on enemy.");
-        //TODO: Az item effektje az Enemy-re kerül
-        UpdateHand(selectedItem);
-        selectedItem = undefined;
+        if(selectedItem.cost <= currentmoney)
+        {
+            currentmoney = currentmoney - selectedItem.cost;
+            UpdateMoney();
+            console.log("Item played on enemy.");
+            //TODO: Az item effektje az Enemy-re kerül
+            UpdateHand(selectedItem);
+            selectedItem = undefined;
+
+        }
     }
 }
 
