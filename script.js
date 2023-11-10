@@ -270,15 +270,14 @@ function DrawCard(){
         
     
         if (drawnCard instanceof Item) {
-            div.addEventListener("clicked", ItemClicked);
+            document.querySelector(`#item${itemNumber}`).addEventListener("click", ItemClicked);
             let type = document.createElement('div');
             type.classList.add('type');
             type.innerHTML = drawnCard.type;
             document.querySelector(`#item${itemNumber} > .infobar_item`).appendChild(type)
         } else {
 
-        div.addEventListener("click", WeaponClicked);
-    
+        document.querySelector(`#item${itemNumber}`).addEventListener("click", WeaponClicked);
         let damage = document.createElement('div');
         damage.classList.add('damage');
         damage.innerHTML = `Damage: ${drawnCard.damage}`;
