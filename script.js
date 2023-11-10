@@ -275,7 +275,7 @@ function DrawCard(){
         
     
         if (drawnCard instanceof Item) {
-            document.querySelector(`#item${itemNumber}`).addEventListener("click", ItemClicked);
+            document.querySelector(`#item${Ourhand.length}`).addEventListener("click", ItemClicked);
             let type = document.createElement('div');
             type.classList.add('type');
             type.innerHTML = drawnCard.type;
@@ -283,7 +283,7 @@ function DrawCard(){
         } 
         else {
 
-        document.querySelector(`#item${itemNumber}`).addEventListener("click", WeaponClicked);
+        document.querySelector(`#item${Ourhand.length}`).addEventListener("click", WeaponClicked);
         let damage = document.createElement('div');
         damage.classList.add('damage');
         damage.innerHTML = `Damage: ${drawnCard.damage}`;
