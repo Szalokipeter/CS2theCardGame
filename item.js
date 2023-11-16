@@ -11,10 +11,15 @@ export class Item extends Card {
 // molotov, heal, flash, he, smoke
     play(target) {
        if(this.type == "Molotov"){
-
+            
        }
        else if(this.type == "Heal"){
-
+            if(target.hp < 5 ){
+                target.hp += 10;
+            }
+            else{
+                target.hp = 15;
+            }
        }
        else if(this.type == "Flash"){
         
