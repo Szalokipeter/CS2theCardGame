@@ -59,7 +59,7 @@ let TCards = [
     new Item("Smoke", 2, "img/smoke_grenade.png"),
     new Item("Heal", 3, "img/citemhealthshot.png"),
     new Item("Molotov", 2, "img/molotov.png"),
-    new Item("HE", 2, "img/exposive_grenade.png"),
+    new Item("HE", 2, "img/explosive_grenade.png"),
     new Item("Flash", 1, "img/flash_grenade.png"),
     new Item("Smoke", 2, "img/smoke_grenade.png"),
     new Item("Heal", 3, "img/citemhealthshot.png")
