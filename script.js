@@ -299,7 +299,7 @@ function DrawCard(){
         div.classList.add('cardInHand');
         div.id = `item${Ourhand.length}`
         document.querySelector('.player_hand').appendChild(div);
-    
+
         let infobar = document.createElement('div');
         infobar.classList.add('infobar_item')
         document.querySelector(`#item${Ourhand.length}`).appendChild(infobar);
@@ -330,7 +330,10 @@ function DrawCard(){
         cost.classList.add('cost');
         cost.innerHTML = `Cost: ${drawnCard.cost}`;
         document.querySelector(`#item${Ourhand.length} > .infobar_item`).appendChild(cost);
-        // console.log(Ourhand);
+
+        let img = document.createElement('img');
+        img.src = drawnCard.imagePath;
+        document.querySelector(`#item${Ourhand.length}`).appendChild(img);
     }
     if(playerCase.length == 0){
         Fatigue();
