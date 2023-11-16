@@ -50,9 +50,34 @@ export class Agent{
         
         if (this.slot1 != undefined){
             this.slot1.durability -= 1;
+            if(this.slot1.durability == 0){
+                // this.attackValue -= this.slot1.attackkValue;
+                this.slot1 = undefined;
+            }
         }
         if(this.slot2 != undefined){
             this.slot2.durability -= 1;
+            if(this.slot2.durability == 0){
+                // this.attackValue -= this.slot2.attackValue;
+                this.slot2 = undefined;
+            }
+        }
+        if(this.slot1 == undefined && this.slot2 == undefined){
+            this.attackValue = 0;
+        }
+    }
+    SetAttackValue(){
+        if(this.slot1 != undefined && this.slot2 != undefined){
+            this.attackValue = (this.slot1.damage + this.slot2.damage);
+        }
+        else if(this.slot1 != undefined && this.slot2 == undefined){
+            this.attackValue = this.slot1.damage;
+        }
+        else if(this.slot2 != undefined && this.slot1 == undefined) {
+            this.attackValue = this.slot2.damage;
+        }
+        else{
+            this.attackValue = 0;
         }
     }
 }

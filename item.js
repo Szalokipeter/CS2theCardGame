@@ -8,9 +8,22 @@ export class Item extends Card {
         this.id = id;
     }
 
-
+// molotov, heal, flash, he, smoke
     play(target) {
-        // TODO: töröljük a kijátszott kártyát
-        // TODO: Az item elhasználódik a targeten
+       if(this.type == "Molotov"){
+
+       }
+       else if(this.type == "Heal"){
+
+       }
+       else if(this.type == "Flash"){
+        
+       }
+       else if(this.type == "HE"){
+        
+       }
+       else if (this.type == "Smoke"){
+
+       }
     }
 }

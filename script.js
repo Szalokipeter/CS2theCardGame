@@ -214,7 +214,9 @@ function AgentClicked(event){
         {
             currentmoney = currentmoney - selectedItem.cost;
             UpdateMoney();
+            selectedItem.play(selectedAgent);
             console.log("Item played.");
+            UpdateOurBoard();
             //TODO: Item effektje az agentre kerül.
             UpdateHand(selectedItem);
             selectedItem = undefined;
@@ -225,7 +227,10 @@ function AgentClicked(event){
         if(selectedWeapon.cost <= currentmoney){
             currentmoney = currentmoney - selectedWeapon.cost;
             UpdateMoney();
+            selectedWeapon.play(selectedAgent);
+            selectedAgent.SetAttackValue();
             console.log("Weapon played");
+            UpdateOurBoard();
             //TODO: Rárakni a weapont az Agent megfelelő slotjára.
             UpdateHand(selectedWeapon);
             selectedWeapon = undefined;
@@ -239,6 +244,7 @@ function EnemyClicked(event) {
     selectedenemy = clickedEnemy;
     if (selectedAgent instanceof Agent && selectedenemy instanceof Enemy) {
             selectedAgent.Attack(clickedEnemy);
+            selectedAgent.SetAttackValue();
             selectedAgent = undefined;
             UpdateEnemyBoard();
             UpdateOurBoard();
@@ -252,7 +258,9 @@ function EnemyClicked(event) {
         {
             currentmoney = currentmoney - selectedItem.cost;
             UpdateMoney();
+            selectedItem.play(selectedenemy);
             console.log("Item played on enemy.");
+            UpdateEnemyBoard();
             //TODO: Az item effektje az Enemy-re kerül
             UpdateHand(selectedItem);
             selectedItem = undefined;
@@ -274,7 +282,13 @@ function CaseClicked(){
 
 }
 function DrawCard(){
-    if(playerCase.length != 0){
+    if(Ourhand.length >= 10){
+        let drawnCard = playerCase[0];
+        playerCase.splice(0,1);
+        alert(`Card burned: ${drawnCard.imagePath}`);
+        console.log(drawnCard);
+    }
+    else if(playerCase.length != 0){
         let drawnCard = playerCase[0];
         UpdateHandwithoutPlayedCard();
         drawnCard.id = `item${Ourhand.length+1}`;
@@ -316,9 +330,9 @@ function DrawCard(){
         cost.classList.add('cost');
         cost.innerHTML = `Cost: ${drawnCard.cost}`;
         document.querySelector(`#item${Ourhand.length} > .infobar_item`).appendChild(cost);
-        console.log(Ourhand);
+        // console.log(Ourhand);
     }
-    else{
+    if(playerCase.length == 0){
         Fatigue();
     }
     
@@ -368,8 +382,9 @@ function UpdateOurBoard(){
                 }
             }
         }
-
-
+        const dmgDiv = document.querySelector(`#${agent.id} .infobar .attackValue`);
+        dmgDiv.textContent = agent.attackValue;
+        //TODO: KÉP!!!
     });
     GameEndedcheck();
 }
@@ -597,7 +612,7 @@ function SpawnBoss(){
     document.querySelector(`#enemy${i+2} > .infobar`).appendChild(attackValue);
     div.addEventListener("click", EnemyClicked);
 
-    console.log(Enemyboard);
+    // console.log(Enemyboard);
 }
 
 function EnemysAttack(){
