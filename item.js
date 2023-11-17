@@ -1,4 +1,6 @@
+import { Agent } from "./agent.js";
 import { Card } from "./card.js";
+import { Enemy } from "./enemy.js";
 
 export class Item extends Card {
     constructor(type, cost, picpath, id) {
@@ -9,9 +11,12 @@ export class Item extends Card {
     }
 
 // molotov, heal, flash, he, smoke
-    play(target) {
+    play(target, boardIsPlayedOn) {
        if(this.type == "Molotov"){
-            
+        boardIsPlayedOn.forEach(entity => {
+            entity.hp -= 3;
+        });
+
        }
        else if(this.type == "Heal"){
             if(target.hp < 5 ){
@@ -22,13 +27,22 @@ export class Item extends Card {
             }
        }
        else if(this.type == "Flash"){
-        
+            target.canAttack = false;
        }
        else if(this.type == "HE"){
-        
+            boardIsPlayedOn.forEach(entity => {
+                entity.hp -= 5;
+            });
        }
        else if (this.type == "Smoke"){
-
+            if(target instanceof Agent){
+                target.shield = true;
+            }
+            else if(target instanceof Enemy){
+                boardIsPlayedOn.forEach(enemy => {
+                    enemy.canAttack = false;
+                });
+            }
        }
     }
 }

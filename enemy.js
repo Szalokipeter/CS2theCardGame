@@ -6,7 +6,7 @@ export class Enemy{
         this.slot1 = Weaponslot1;
         this.slot2 = Weaponslot2;
         this.id = id;
-
+        this.canAttack = true;
         if(this.slot1 != undefined && this.slot2 != undefined){
             this.attackValue = (this.slot1.damage + this.slot2.damage);
         }
@@ -31,7 +31,7 @@ export class Enemy{
             target.hp -=this.slot2.damage;
         }
         else{
-            alert("The minion dosent have any attack value!")
+            alert("The enemy dosent have any attack value!")
         }
         
         if (this.slot1 != undefined){

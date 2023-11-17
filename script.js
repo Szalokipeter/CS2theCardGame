@@ -89,6 +89,7 @@ let currentmaxmoney = 1;
 let currentmoney = 1;
 let fatigue = 0;
 let bossspawned = false;
+let burndmg = 0;
 
 MakeAgents(playerTeam);
 
@@ -214,11 +215,13 @@ function AgentClicked(event){
         {
             currentmoney = currentmoney - selectedItem.cost;
             UpdateMoney();
-            selectedItem.play(selectedAgent);
+            selectedItem.play(selectedAgent, Ourboard);
             console.log("Item played.");
             UpdateOurBoard();
-            //TODO: Item effektje az agentre kerül.
             UpdateHand(selectedItem);
+            if(selectedItem.type == "Molotov"){
+                burndmg = 2;
+            }
             selectedItem = undefined;
             selectedAgent = undefined;
         }
@@ -231,7 +234,6 @@ function AgentClicked(event){
             selectedAgent.SetAttackValue();
             console.log("Weapon played");
             UpdateOurBoard();
-            //TODO: Rárakni a weapont az Agent megfelelő slotjára.
             UpdateHand(selectedWeapon);
             selectedWeapon = undefined;
             selectedAgent = undefined;
@@ -258,13 +260,15 @@ function EnemyClicked(event) {
         {
             currentmoney = currentmoney - selectedItem.cost;
             UpdateMoney();
-            selectedItem.play(selectedenemy);
+            selectedItem.play(selectedenemy, Enemyboard);
             console.log("Item played on enemy.");
             UpdateEnemyBoard();
-            //TODO: Az item effektje az Enemy-re kerül
+            if(selectedItem.type == "Molotov"){
+                burndmg = 2;
+            }
             UpdateHand(selectedItem);
             selectedItem = undefined;
-
+            selectedenemy = undefined;
         }
     }
 }
@@ -436,12 +440,18 @@ function StartTurn(){
     currentmaxmoney++;
     currentmoney = currentmaxmoney;
     UpdateMoney();
+    Enemyboard.forEach(minion => {
+        minion.canAttack = true;
+    });
 }
 
 function EndTurn(){
+    burn();
     EnemysAttack();
     //existing enemys will attack
     //THEN enemys will spawn
+    UpdateEnemyBoard();
+    UpdateOurBoard();
     SpawnEnemy();
     StartTurn();
 }
@@ -615,7 +625,6 @@ function SpawnBoss(){
     document.querySelector(`#enemy${i+2} > .infobar`).appendChild(attackValue);
     div.addEventListener("click", EnemyClicked);
 
-    // console.log(Enemyboard);
 }
 
 function EnemysAttack(){
@@ -635,5 +644,17 @@ function GameEndedcheck(){
     }
     else if(bossspawned == true && Enemyboard.length == 0){
         alert("You won... nothing.")
+    }
+}
+
+function burn(){
+    if(burndmg != 0){
+        Enemyboard.forEach(enemy => {
+            enemy.hp -= burndmg;
+        });
+        Ourboard.forEach(agent=>{
+            agent.hp -= burndmg;
+        });
+        burndmg--;
     }
 }
