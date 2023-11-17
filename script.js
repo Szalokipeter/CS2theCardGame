@@ -148,6 +148,12 @@ function MakeAgents(team) {
         attackValue.classList.add('attackValue');
         attackValue.innerHTML = agent.attackValue;
         document.querySelector(`#agent${i} > .infobar`).appendChild(attackValue);
+
+        let agentImage = document.createElement('img');
+        agentImage.classList.add('agentImage');
+        let rnd = Math.floor(Math.random() * 8) + 1;
+        agentImage.src = `img/${playerTeam.toLowerCase()}${rnd}.png`;
+        document.querySelector(`#agent${i}`).appendChild(agentImage);
         div.addEventListener("click", AgentClicked);
     }
 }
@@ -510,6 +516,19 @@ function SpawnEnemy(){
     attackValue.classList.add('attackValue');
     attackValue.innerHTML = enemy.attackValue;
     document.querySelector(`#enemy${i} > .infobar`).appendChild(attackValue);
+
+    let agentImage = document.createElement('img');
+    agentImage.classList.add('agentImage');
+    let rnd = Math.floor(Math.random() * 8) + 1;
+    let enemyTeam = null;
+    if (playerTeam == 'T') {
+        enemyTeam = 'ct';
+    } else {
+        enemyteam = 't';
+    }
+    agentImage.src = `img/${enemyTeam}${rnd}.png`;
+    document.querySelector(`#enemy${i}`).appendChild(agentImage);
+
     div.addEventListener("click", EnemyClicked);
     }
 }
