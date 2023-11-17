@@ -9,6 +9,7 @@ export class Agent{
         this.hp = 15;
         this.slot1 = undefined;
         this.id = id;
+        this.shield = false;
         if (team == 'T'){
             this.slot2 = new Weapon(2, 0, 1, 8, 'img/Glock.png', undefined);
         }
@@ -33,16 +34,34 @@ export class Agent{
     }
     Attack(target){
         if(this.slot1 != undefined && this.slot2 != undefined){
-            target.hp -= (this.slot1.damage+ this.slot2.damage);
-            this.hp -= target.attackValue;
+            if(this.shield == true){
+                this.shield = false;
+                target.hp -= (this.slot1.damage+ this.slot2.damage);
+            }
+            else{
+                target.hp -= (this.slot1.damage+ this.slot2.damage);
+                this.hp -= target.attackValue;
+            }
         }
         else if(this.slot1 != undefined && this.slot2 == undefined){
-            target.hp -= this.slot1.damage;
-            this.hp -= target.attackValue;
+            if(this.shield == true){
+                this.shield = false;
+                target.hp -= this.slot1.damage;
+            }
+            else{
+                target.hp -= this.slot1.damage;
+                this.hp -= target.attackValue;
+            }
         }
         else if (this.slot1 == undefined && this.slot2 != undefined){
-            target.hp -=this.slot2.damage;
-            this.hp -= target.attackValue;
+            if(this.shield == true){
+                this.shield = false;
+                target.hp -= this.slot2.damage;
+            }
+            else{
+                target.hp -=this.slot2.damage;
+                this.hp -= target.attackValue;
+            }
         }
         else{
             alert("The minion dosent have any attack value!")
