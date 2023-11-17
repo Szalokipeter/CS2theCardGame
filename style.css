@@ -9,6 +9,7 @@
     width: auto;
     height: 80vh;
     display: flex;
+    backdrop-filter: blur(8px);
 }
 
 

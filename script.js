@@ -90,6 +90,8 @@ let currentmoney = 1;
 let fatigue = 0;
 let bossspawned = false;
 
+SetBackground();
+
 MakeAgents(playerTeam);
 
 StartGame();
@@ -636,4 +638,11 @@ function GameEndedcheck(){
     else if(bossspawned == true && Enemyboard.length == 0){
         alert("You won... nothing.")
     }
+}
+
+
+function SetBackground() {
+    let r = Math.floor(Math.random() * 4) + 1;
+    document.querySelector('body').style.backgroundImage = `url(img/bg${r}.png)`;
+    
 }
