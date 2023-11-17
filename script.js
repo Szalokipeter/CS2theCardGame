@@ -91,6 +91,8 @@ let fatigue = 0;
 let bossspawned = false;
 let burndmg = 0;
 
+SetBackground();
+
 MakeAgents(playerTeam);
 
 StartGame();
@@ -657,4 +659,10 @@ function burn(){
         });
         burndmg--;
     }
+}
+
+function SetBackground() {
+    let r = Math.floor(Math.random() * 4) + 1;
+    document.querySelector('body').style.backgroundImage = `url(img/bg${r}.png)`;
+    
 }
