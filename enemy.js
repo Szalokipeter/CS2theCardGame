@@ -21,24 +21,52 @@ export class Enemy{
         }
     }
     Attack(target){
+        if(this.canAttack){
+            if(this.slot1 != undefined && this.slot2 != undefined){
+                target.hp -= (this.slot1.damage+ this.slot2.damage);
+                this.hp -= target.attackValue;
+            }
+            else if(this.slot1 != undefined && this.slot2 == undefined){
+                    target.hp -= this.slot1.damage;
+                    this.hp -= target.attackValue;
+            }
+            else if (this.slot1 == undefined && this.slot2 != undefined){
+                    target.hp -=this.slot2.damage;
+                    this.hp -= target.attackValue;
+            }
+            else{
+                console.log("Enemy can't attack!");
+            }
+            
+            if (this.slot1 != undefined){
+                this.slot1.durability -= 1;
+                if(this.slot1.durability == 0){
+                    this.slot1 = undefined;
+                }
+            }
+            if(this.slot2 != undefined){
+                this.slot2.durability -= 1;
+                if(this.slot2.durability == 0){
+                    this.slot2 = undefined;
+                }
+            }
+            if(this.slot1 == undefined && this.slot2 == undefined){
+                this.attackValue = 0;
+            }
+        }
+    }
+    SetAttackValue(){
         if(this.slot1 != undefined && this.slot2 != undefined){
-            target.hp -= (this.slot1.damage+ this.slot2.damage);
+            this.attackValue = (this.slot1.damage + this.slot2.damage);
         }
         else if(this.slot1 != undefined && this.slot2 == undefined){
-            target.hp -= this.slot1.damage;
+            this.attackValue = this.slot1.damage;
         }
-        else if (this.slot1 == undefined && this.slot2 != undefined){
-            target.hp -=this.slot2.damage;
+        else if(this.slot2 != undefined && this.slot1 == undefined) {
+            this.attackValue = this.slot2.damage;
         }
         else{
-            alert("The enemy dosent have any attack value!")
-        }
-        
-        if (this.slot1 != undefined){
-            this.slot1.durability -= 1;
-        }
-        if(this.slot2 != undefined){
-            this.slot2.durability -= 1;
+            this.attackValue = 0;
         }
     }
 }
