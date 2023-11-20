@@ -534,7 +534,7 @@ function SpawnEnemy(){
     if (playerTeam == 'T') {
         enemyTeam = 'ct';
     } else {
-        enemyteam = 't';
+        enemyTeam = 't';
     }
     agentImage.src = `img/${enemyTeam}${rnd}.png`;
     document.querySelector(`#enemy${i}`).appendChild(agentImage);
