@@ -124,6 +124,11 @@ function MakeAgents(team) {
 
         let div = document.createElement('div');
         div.classList.add('agent');
+        if (playerTeam == 'T') {
+            div.classList.add('terrorist');
+        } else {
+            div.classList.add('counterTerrorist');
+        }
         div.id = `agent${i}`
         document.querySelector('.player_cards').appendChild(div);
 
@@ -504,6 +509,11 @@ function SpawnEnemy(){
     let div = document.createElement('div');
     div.classList.add('enemy');
     div.id = `enemy${i}`
+    if (playerTeam == 'T') {
+        div.classList.add('counterTerrorist');
+    } else {
+        div.classList.add('terrorist');
+    }
     document.querySelector('.enemy_cards').appendChild(div);
 
     let infobar = document.createElement('div');
@@ -556,6 +566,11 @@ function SpawnBoss(){
     let div = document.createElement('div');
     div.classList.add('enemy');
     div.id = `enemy${i}`
+    if (playerTeam == 'T') {
+        div.classList.add('counterTerrorist', 'counterTerroristBoss')
+    } else {
+        div.classList.add('terrorist', 'terroristBoss')
+    }
     document.querySelector('.enemy_cards').appendChild(div);
 
     let infobar = document.createElement('div');
