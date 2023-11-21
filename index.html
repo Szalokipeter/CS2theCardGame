@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="board">
+    <button id="start">Start Game</button>
+    <div class="board" style="visibility: hidden;">
         <div class="main">
 
             <div class="enemy_board">
@@ -18,27 +19,27 @@
 
             <div class="player">
                 <div class="player_cards">
-                    
+
                 </div>
                 <div class="player_hand">
-                    
+
                 </div>
             </div>
 
         </div>
 
-    <div class="sidebar">
+        <div class="sidebar">
 
-        <div class="case">
-            <div class="láda"> <button id="case"></button> </div>
-            <div class="money_counter">1$</div>
+            <div class="case">
+                <div class="láda"> <button id="case"></button> </div>
+                <div class="money_counter">1$</div>
+            </div>
+
+            <div class="end_turn">
+                <button id="EndButton">End Turn</button>
+            </div>
+
         </div>
-
-        <div class="end_turn">
-            <button id="EndButton">End Turn</button>
-        </div>
-
-    </div>
     </div>
     <script type="module" src="script.js"></script>
 </body>

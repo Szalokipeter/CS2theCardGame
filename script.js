@@ -97,6 +97,7 @@ MakeAgents(playerTeam);
 
 StartGame();
 
+document.getElementById("start").addEventListener("click", StartGamebutton);
 document.querySelector('#EndButton').addEventListener("click", EndTurn);
 document.querySelector('#case').addEventListener("click", CaseClicked);
 
@@ -665,7 +666,6 @@ function SpawnBoss(){
 }
 
 function EnemysAttack(){
-    //TODO: enemys attack a random agent
     Enemyboard.forEach(enemy => {
         let selectedrandomfriendlyagent = randomIntFromInterval(1, Ourboard.length);
         console.log(selectedrandomfriendlyagent);
@@ -719,11 +719,19 @@ function randomIntFromInterval(min, max) { // min and max included
 
 function EndGame(){
     document.querySelector('.board').remove();
-    let button = document.querySelector('body').createElement('button');
-    button.innerHTML = "Restart Game";
+
+    let button = document.createElement("button");
     button.addEventListener("click", StartAnotherGame);
+    button.innerHTML = "Go back to main menu";
+    button.classList.add("restartbutton");
+    document.querySelector('body').appendChild(button);
 }
 
 function StartAnotherGame(){
-    
+    location.reload();
+}
+
+function StartGamebutton(){
+    document.querySelector(".board").style.visibility = "visible";
+    document.getElementById("start").remove();
 }

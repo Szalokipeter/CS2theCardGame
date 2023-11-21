@@ -148,3 +148,8 @@
     height: 100%;
     width: auto;
 }
+.restartbutton{
+    margin: auto;
+    height: 10%;
+    width: 10%;
+}
