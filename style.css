@@ -160,3 +160,8 @@
 .counterTerrorist {
     background-color: url(img/ct_bg.png);
 }
+.restartbutton{
+    margin: auto;
+    height: 10%;
+    width: 10%;
+}

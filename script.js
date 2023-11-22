@@ -97,6 +97,7 @@ MakeAgents(playerTeam);
 
 StartGame();
 
+document.getElementById("start").addEventListener("click", StartGamebutton);
 document.querySelector('#EndButton').addEventListener("click", EndTurn);
 document.querySelector('#case').addEventListener("click", CaseClicked);
 
@@ -289,7 +290,6 @@ function EnemyClicked(event) {
 function CaseClicked(){
     if(currentmoney >= 2){
         currentmoney -= 2;
-        //Ha akarunk animot ide rakjuk
         DrawCard();
         UpdateMoney();
     }
@@ -403,8 +403,9 @@ function UpdateOurBoard(){
             }
         }
         const dmgDiv = document.querySelector(`#${agent.id} .infobar .attackValue`);
-        dmgDiv.textContent = agent.attackValue;
-        //TODO: KÉP!!!
+        if(dmgDiv){
+            dmgDiv.textContent = agent.attackValue;
+        }
     });
     GameEndedcheck();
 }
@@ -425,6 +426,10 @@ function UpdateEnemyBoard(){
                 const healthCounter = enemydiv.querySelector('.hpCounter');
                 if (healthCounter) {
                     healthCounter.textContent = enemy.hp;
+                }
+                const dmgcounter = enemydiv.querySelector(".attackValue");
+                if(dmgcounter){
+                    dmgcounter.textContent = enemy.attackValue;
                 }
             }
         }
@@ -461,8 +466,6 @@ function StartTurn(){
 function EndTurn(){
     burn();
     EnemysAttack();
-    //existing enemys will attack
-    //THEN enemys will spawn
     UpdateEnemyBoard();
     UpdateOurBoard();
     SpawnEnemy();
@@ -595,7 +598,6 @@ function SpawnBoss(){
     document.querySelector(`#enemy${i} > .infobar`).appendChild(attackValue);
     div.addEventListener("click", EnemyClicked);
 
-    // and 2 mini-bosses
     enemy = new Enemy(20, bossweapon, bosssecondary, "img/boss.png", `enemy${i+1}`);
     Enemyboard.push(enemy);
 
@@ -664,8 +666,15 @@ function SpawnBoss(){
 }
 
 function EnemysAttack(){
-    //TODO: enemys attack a random agent
+    Enemyboard.forEach(enemy => {
+        let selectedrandomfriendlyagent = randomIntFromInterval(1, Ourboard.length);
+        console.log(selectedrandomfriendlyagent);
+        let attackedagent = Ourboard.find(agent => agent.id === Ourboard[selectedrandomfriendlyagent-1].id)
+        console.log(attackedagent);
+        enemy.Attack(attackedagent);
+        console.log(enemy);
 
+    });
 
     UpdateEnemyBoard();
     UpdateOurBoard();
@@ -673,13 +682,16 @@ function EnemysAttack(){
 
 function GameEndedcheck(){
     if(Ourboard.length == 0 && bossspawned == true && Enemyboard.length == 0){
-        alert("Draw.")
+        console.log("Draw.")
+        EndGame();
     }
     else if(Ourboard.length == 0){
-        alert("You lost lol");
+        console.log("You lost lol");
+        EndGame();
     }
     else if(bossspawned == true && Enemyboard.length == 0){
-        alert("You won... nothing.")
+        console.log("You won... nothing.")
+        EndGame();
     }
 }
 
@@ -699,4 +711,27 @@ function SetBackground() {
     let r = Math.floor(Math.random() * 4) + 1;
     document.querySelector('body').style.backgroundImage = `url(img/bg${r}.png)`;
     
+}
+
+function randomIntFromInterval(min, max) { // min and max included
+    return Math.floor(Math.random() * (max - min + 1) + min)
+    }
+
+function EndGame(){
+    document.querySelector('.board').remove();
+
+    let button = document.createElement("button");
+    button.addEventListener("click", StartAnotherGame);
+    button.innerHTML = "Go back to main menu";
+    button.classList.add("restartbutton");
+    document.querySelector('body').appendChild(button);
+}
+
+function StartAnotherGame(){
+    location.reload();
+}
+
+function StartGamebutton(){
+    document.querySelector(".board").style.visibility = "visible";
+    document.getElementById("start").remove();
 }
