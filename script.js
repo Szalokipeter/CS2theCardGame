@@ -804,6 +804,21 @@ function randomIntFromInterval(min, max) { // min and max included
 
 function EndGame(){
     if(document.querySelector('.sidebar').children.length <= 3){
+        var divs = document.getElementsByTagName('div');
+        for (var i = 0; i < divs.length; i++) {
+            divs[i].removeEventListener('click', AgentClicked);
+            divs[i].removeEventListener('click', WeaponClicked);
+            divs[i].removeEventListener('click', ItemClicked);
+            divs[i].removeEventListener('click', EnemyClicked);
+
+        }
+
+        var buttons = document.getElementsByTagName('button');
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].removeEventListener('click', EndTurn);
+            buttons[i].removeEventListener('click', CaseClicked);
+        }
+
         let button = document.createElement("button");
         button.addEventListener("click", StartAnotherGame);
         button.innerHTML = "Go Back";
