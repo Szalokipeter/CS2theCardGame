@@ -346,7 +346,7 @@ function DrawCard(){
         let durability = document.createElement('div');
         durability.classList.add('durability');
         durability.innerHTML = `Durability: ${drawnCard.durability}`;
-        durability.style.backgroundColor = "brown";
+        durability.style.backgroundColor = "purple";
         document.querySelector(`#item${Ourhand.length} > .infobar_item`).appendChild(durability);
         }
     
@@ -442,7 +442,6 @@ function UpdateEnemyBoard(){
             }
         }
     });
-    GameEndedcheck();
 
     let i = 1;
     Enemyboard.forEach(enemy =>{
@@ -746,14 +745,17 @@ function GameEndedcheck(){
     if(Ourboard.length == 0 && bossspawned == true && Enemyboard.length == 0){
         PrintInMessageArea("Draw.")
         EndGame();
+        return;
     }
     else if(Ourboard.length == 0){
         PrintInMessageArea("You lost.");
         EndGame();
+        return;
     }
     else if(bossspawned == true && Enemyboard.length == 0){
         PrintInMessageArea("You won!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         EndGame();
+        return;
     }
 }
 
