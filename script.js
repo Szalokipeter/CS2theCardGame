@@ -85,25 +85,27 @@ let selectedItem = undefined;
 let selectedWeapon = undefined;
 let selectedenemy = undefined;
 let Ourhand = [];
-let currentmaxmoney = 1;
-let currentmoney = 1;
+let currentmaxmoney = 5;
+let currentmoney = 5;
 let fatigue = 0;
 let bossspawned = false;
 let burndmg = 0;
 
 SetBackground();
+MakeStartButton();
+function StartButtonPressed() {
+document.getElementById("start").remove();
 
 MakeAgents(playerTeam);
 
 StartGame();
 
-document.getElementById("start").addEventListener("click", StartGamebutton);
 document.querySelector('#EndButton').addEventListener("click", EndTurn);
 document.querySelector('#case').addEventListener("click", CaseClicked);
 
 UpdateMoney();
 
-
+}
 
 function DecideTeam() {
     if (Math.random() > 0.5) {
@@ -122,12 +124,12 @@ function MakeAgents(team) {
             agent = new Agent(team, 'img/CTAgent.img', `agent${i}`);
         }
         Ourboard.push(agent);
-
+        
         let div = document.createElement('div');
         div.classList.add('agent');
         if (playerTeam == 'T') {
             div.classList.add('terrorist');
-        } else if(playerTeam = 'CT') {
+        } else {
             div.classList.add('counterTerrorist');
         }
         div.id = `agent${i}`
@@ -135,10 +137,11 @@ function MakeAgents(team) {
 
         let infobar = document.createElement('div');
         infobar.classList.add('infobar')
+        infobar.style.backgroundColor = "black";
         document.querySelector(`#agent${i}`).appendChild(infobar);
         
         let slot1 = document.createElement('div');
-        slot1.classList.add('slot1');
+        slot1.classList.add('slot1')
         document.querySelector(`#agent${i} > .infobar`).appendChild(slot1)
         
         let slot2 = document.createElement('div');
@@ -148,12 +151,14 @@ function MakeAgents(team) {
         let hp = document.createElement('div');
         hp.classList.add('hpCounter');
         hp.innerHTML = agent.hp;
+        hp.style.backgroundColor = "red";
         document.querySelector(`#agent${i} > .infobar`).appendChild(hp);
 
 
         let attackValue = document.createElement('div');
         attackValue.classList.add('attackValue');
         attackValue.innerHTML = agent.attackValue;
+        attackValue.style.backgroundColor = "blue";
         document.querySelector(`#agent${i} > .infobar`).appendChild(attackValue);
         
         let agentImage = document.createElement('img');
@@ -190,11 +195,11 @@ function WeaponClicked(event){
     let clickedWeapon = Ourhand.find(weapon => weapon.id === event.currentTarget.id);
     if(selectedWeapon === clickedWeapon){
         selectedWeapon = undefined;
-        console.log("Weapon unselected.");
+        PrintInMessageArea("Weapon unselected.");
     }
     else{
         selectedWeapon = clickedWeapon;
-        console.log("Weapon selected.");
+        PrintInMessageArea("Weapon selected.");
     }
 
 
@@ -206,11 +211,11 @@ function ItemClicked(event){
     let clickedItem = Ourhand.find(item => item.id === event.currentTarget.id);
     if(selectedItem === clickedItem){
         selectedItem = undefined;
-        console.log("Item unselected.");
+        PrintInMessageArea("Item unselected.");
     }
     else{
         selectedItem = clickedItem;
-        console.log("Item selected.");
+        PrintInMessageArea("Item selected.");
     }
 }
 
@@ -230,7 +235,7 @@ function AgentClicked(event){
             currentmoney = currentmoney - selectedItem.cost;
             UpdateMoney();
             selectedItem.play(selectedAgent, Ourboard);
-            console.log("Item played.");
+            PrintInMessageArea("Item played.");
             UpdateOurBoard();
             UpdateHand(selectedItem);
             if(selectedItem.type == "Molotov"){
@@ -246,7 +251,7 @@ function AgentClicked(event){
             UpdateMoney();
             selectedWeapon.play(selectedAgent);
             selectedAgent.SetAttackValue();
-            console.log("Weapon played");
+            PrintInMessageArea("Weapon played");
             UpdateOurBoard();
             UpdateHand(selectedWeapon);
             selectedWeapon = undefined;
@@ -266,7 +271,7 @@ function EnemyClicked(event) {
             UpdateOurBoard();
     } 
     else if(!selectedItem){
-        console.log("No Agent Selected!");
+        PrintInMessageArea("No Agent Selected!");
     }
 
     if(selectedItem && selectedenemy){
@@ -275,7 +280,7 @@ function EnemyClicked(event) {
             currentmoney = currentmoney - selectedItem.cost;
             UpdateMoney();
             selectedItem.play(selectedenemy, Enemyboard);
-            console.log("Item played on enemy.");
+            PrintInMessageArea("Item played on enemy.");
             UpdateEnemyBoard();
             if(selectedItem.type == "Molotov"){
                 burndmg = 2;
@@ -294,16 +299,15 @@ function CaseClicked(){
         UpdateMoney();
     }
     else{
-        alert("Nincs elég zsetta papi.")
+        PrintInMessageArea("Not enough money.")
     }
 
 }
 function DrawCard(){
-    if(Ourhand.length >= 10){
+    if(Ourhand.length >= 5){
         let drawnCard = playerCase[0];
         playerCase.splice(0,1);
-        alert(`Card burned: ${drawnCard.imagePath}`);
-        console.log(drawnCard);
+        PrintInMessageArea(`Card burned: ${(drawnCard.imagePath).substring(4, drawnCard.imagePath.length - 4)}`);
     }
     else if(playerCase.length != 0){
         let drawnCard = playerCase[0];
@@ -319,6 +323,7 @@ function DrawCard(){
 
         let infobar = document.createElement('div');
         infobar.classList.add('infobar_item')
+        infobar.style.backgroundColor = "black";
         document.querySelector(`#item${Ourhand.length}`).appendChild(infobar);
         
     
@@ -335,17 +340,20 @@ function DrawCard(){
         let damage = document.createElement('div');
         damage.classList.add('damage');
         damage.innerHTML = `Damage: ${drawnCard.damage}`;
+        damage.style.backgroundColor = "darkred";
         document.querySelector(`#item${Ourhand.length} > .infobar_item`).appendChild(damage)
     
         let durability = document.createElement('div');
         durability.classList.add('durability');
         durability.innerHTML = `Durability: ${drawnCard.durability}`;
+        durability.style.backgroundColor = "brown";
         document.querySelector(`#item${Ourhand.length} > .infobar_item`).appendChild(durability);
         }
     
         let cost = document.createElement('div');
         cost.classList.add('cost');
         cost.innerHTML = `Cost: ${drawnCard.cost}`;
+        cost.style.backgroundColor = "yellow";
         document.querySelector(`#item${Ourhand.length} > .infobar_item`).appendChild(cost);
 
         let img = document.createElement('img');
@@ -479,7 +487,7 @@ function UpdateMoney(){
 
 function Fatigue(){
     fatigue++;
-    console.log("Fatigue Level Increased!");
+    PrintInMessageArea("Fatigue Level Increased!");
 }
 
 function SpawnEnemy(){
@@ -519,6 +527,7 @@ function SpawnEnemy(){
 
     let infobar = document.createElement('div');
     infobar.classList.add('infobar')
+    infobar.style.backgroundColor = "black";
     document.querySelector(`#enemy${i}`).appendChild(infobar);
     
     let slot1 = document.createElement('div');
@@ -532,12 +541,14 @@ function SpawnEnemy(){
     let hp = document.createElement('div');
     hp.classList.add('hpCounter');
     hp.innerHTML = enemy.hp;
+    hp.style.backgroundColor = "red";
     document.querySelector(`#enemy${i} > .infobar`).appendChild(hp);
 
 
     let attackValue = document.createElement('div');
     attackValue.classList.add('attackValue');
     attackValue.innerHTML = enemy.attackValue;
+    attackValue.style.backgroundColor = "blue";
     document.querySelector(`#enemy${i} > .infobar`).appendChild(attackValue);
 
     let agentImage = document.createElement('img');
@@ -568,14 +579,15 @@ function SpawnBoss(){
     div.classList.add('enemy');
     div.id = `enemy${i}`
     if (playerTeam == 'T') {
-        div.classList.add('counterTerrorist', 'counterTerroristBoss')
+        div.classList.add('counterTerrorist')
     } else {
-        div.classList.add('terrorist', 'terroristBoss')
+        div.classList.add('terrorist')
     }
     document.querySelector('.enemy_cards').appendChild(div);
 
     let infobar = document.createElement('div');
     infobar.classList.add('infobar')
+    infobar.style.backgroundColor = "black";
     document.querySelector(`#enemy${i}`).appendChild(infobar);
     
     let slot1 = document.createElement('div');
@@ -589,90 +601,140 @@ function SpawnBoss(){
     let hp = document.createElement('div');
     hp.classList.add('hpCounter');
     hp.innerHTML = enemy.hp;
+    hp.style.backgroundColor = "red";
     document.querySelector(`#enemy${i} > .infobar`).appendChild(hp);
 
 
     let attackValue = document.createElement('div');
     attackValue.classList.add('attackValue');
     attackValue.innerHTML = enemy.attackValue;
+    attackValue.style.backgroundColor = "blue";
     document.querySelector(`#enemy${i} > .infobar`).appendChild(attackValue);
+
+    let agentImage = document.createElement('img');
+    agentImage.classList.add('agentImage');
+    let rnd = Math.floor(Math.random() * 8) + 1;
+    let enemyTeam = null;
+    if (playerTeam == 'T') {
+        enemyTeam = 'ct';
+    } else {
+        enemyTeam = 't';
+    }
+    agentImage.src = `img/${enemyTeam}${rnd}.png`;
+    document.querySelector(`#enemy${i}`).appendChild(agentImage);
+
     div.addEventListener("click", EnemyClicked);
 
     enemy = new Enemy(20, bossweapon, bosssecondary, "img/boss.png", `enemy${i+1}`);
     Enemyboard.push(enemy);
 
-    div = document.createElement('div');
-    div.classList.add('enemy');
-    div.id = `enemy${i+1}`
-    document.querySelector('.enemy_cards').appendChild(div);
 
-    infobar = document.createElement('div');
-    infobar.classList.add('infobar')
-    document.querySelector(`#enemy${i+1}`).appendChild(infobar);
+    let div2 = document.createElement('div');
+    div2.classList.add('enemy');
+    div2.id = `enemy${i+1}`
+    if (playerTeam == 'T') {
+        div.classList.add('counterTerrorist', 'counterTerroristBoss');
+    } else {
+        div.classList.add('terrorist', 'terroristBoss')
+    }
+    document.querySelector('.enemy_cards').appendChild(div2);
+
+    let infobar2 = document.createElement('div');
+    infobar2.classList.add('infobar')
+    infobar2.style.backgroundColor = "black";
+    document.querySelector(`#enemy${i+1}`).appendChild(infobar2);
     
-    slot1 = document.createElement('div');
-    slot1.classList.add('slot1');
-    document.querySelector(`#enemy${i+1} > .infobar`).appendChild(slot1)
+    let slot1_2 = document.createElement('div');
+    slot1_2.classList.add('slot1');
+    document.querySelector(`#enemy${i+1} > .infobar`).appendChild(slot1_2)
     
-    slot2 = document.createElement('div');
-    slot2.classList.add('slot2');
-    document.querySelector(`#enemy${i+1} > .infobar`).appendChild(slot2);
+    let slot2_2 = document.createElement('div');
+    slot2_2.classList.add('slot2');
+    document.querySelector(`#enemy${i+1} > .infobar`).appendChild(slot2_2);
     
-    hp = document.createElement('div');
-    hp.classList.add('hpCounter');
-    hp.innerHTML = enemy.hp;
-    document.querySelector(`#enemy${i+1} > .infobar`).appendChild(hp);
+    let hp2 = document.createElement('div');
+    hp2.classList.add('hpCounter');
+    hp2.innerHTML = enemy.hp;
+    hp2.style.backgroundColor = "red";
+    document.querySelector(`#enemy${i+1} > .infobar`).appendChild(hp2);
 
 
-    attackValue = document.createElement('div');
-    attackValue.classList.add('attackValue');
-    attackValue.innerHTML = enemy.attackValue;
-    document.querySelector(`#enemy${i+1} > .infobar`).appendChild(attackValue);
-    div.addEventListener("click", EnemyClicked);
+    let attackValue2 = document.createElement('div');
+    attackValue2.classList.add('attackValue');
+    attackValue2.innerHTML = enemy.attackValue;
+    attackValue2.style.backgroundColor = "blue";
+    document.querySelector(`#enemy${i+1} > .infobar`).appendChild(attackValue2);
+
+    let agentImage2 = document.createElement('img');
+    agentImage2.classList.add('agentImage');
+    let rnd2 = Math.floor(Math.random() * 8) + 1;
+    let enemyTeam2 = null;
+    if (playerTeam == 'T') {
+        enemyTeam2 = 'ct';
+    } else {
+        enemyTeam2 = 't';
+    }
+    agentImage2.src = `img/${enemyTeam2}${rnd2}.png`;
+    document.querySelector(`#enemy${i+1}`).appendChild(agentImage2);
+
+    div2.addEventListener("click", EnemyClicked);
 
 
     enemy = new Enemy(10, bossweapon, undefined, "img/mini.png", `enemy${i+2}`);
     Enemyboard.push(enemy);
 
-    div = document.createElement('div');
-    div.classList.add('enemy');
-    div.id = `enemy${i+2}`
-    document.querySelector('.enemy_cards').appendChild(div);
+    let div3 = document.createElement('div');
+    div3.classList.add('enemy');
+    div3.id = `enemy${i+2}`
+    document.querySelector('.enemy_cards').appendChild(div3);
 
-    infobar = document.createElement('div');
-    infobar.classList.add('infobar')
-    document.querySelector(`#enemy${i+2}`).appendChild(infobar);
+    let infobar3 = document.createElement('div');
+    infobar3.classList.add('infobar')
+    infobar3.style.backgroundColor = "black";
+    document.querySelector(`#enemy${i+2}`).appendChild(infobar3);
     
-    slot1 = document.createElement('div');
-    slot1.classList.add('slot1');
-    document.querySelector(`#enemy${i+2} > .infobar`).appendChild(slot1)
+    let slot1_3 = document.createElement('div');
+    slot1_3.classList.add('slot1');
+    document.querySelector(`#enemy${i+2} > .infobar`).appendChild(slot1_3)
     
-    slot2 = document.createElement('div');
-    slot2.classList.add('slot2');
-    document.querySelector(`#enemy${i+2} > .infobar`).appendChild(slot2);
+    let slot2_3 = document.createElement('div');
+    slot2_3.classList.add('slot2');
+    document.querySelector(`#enemy${i+2} > .infobar`).appendChild(slot2_3);
     
-    hp = document.createElement('div');
-    hp.classList.add('hpCounter');
-    hp.innerHTML = enemy.hp;
-    document.querySelector(`#enemy${i+2} > .infobar`).appendChild(hp);
+    let hp3 = document.createElement('div');
+    hp3.classList.add('hpCounter');
+    hp3.innerHTML = enemy.hp;
+    hp3.style.backgroundColor = "red";
+    document.querySelector(`#enemy${i+2} > .infobar`).appendChild(hp3);
 
 
-    attackValue = document.createElement('div');
-    attackValue.classList.add('attackValue');
-    attackValue.innerHTML = enemy.attackValue;
-    document.querySelector(`#enemy${i+2} > .infobar`).appendChild(attackValue);
-    div.addEventListener("click", EnemyClicked);
+    let attackValue3 = document.createElement('div');
+    attackValue3.classList.add('attackValue');
+    attackValue3.innerHTML = enemy.attackValue;
+    attackValue3.style.backgroundColor = "blue";
+    document.querySelector(`#enemy${i+2} > .infobar`).appendChild(attackValue3);
+
+    let agentImage3 = document.createElement('img');
+    agentImage3.classList.add('agentImage');
+    let rnd3 = Math.floor(Math.random() * 8) + 1;
+    let enemyTeam3 = null;
+    if (playerTeam == 'T') {
+        enemyTeam3 = 'ct';
+    } else {
+        enemyTeam3 = 't';
+    }
+    agentImage3.src = `img/${enemyTeam3}${rnd3}.png`;
+    document.querySelector(`#enemy${i+2}`).appendChild(agentImage3);
+
+    div3.addEventListener("click", EnemyClicked);
 
 }
 
 function EnemysAttack(){
     Enemyboard.forEach(enemy => {
         let selectedrandomfriendlyagent = randomIntFromInterval(1, Ourboard.length);
-        console.log(selectedrandomfriendlyagent);
         let attackedagent = Ourboard.find(agent => agent.id === Ourboard[selectedrandomfriendlyagent-1].id)
-        console.log(attackedagent);
         enemy.Attack(attackedagent);
-        console.log(enemy);
 
     });
 
@@ -682,15 +744,15 @@ function EnemysAttack(){
 
 function GameEndedcheck(){
     if(Ourboard.length == 0 && bossspawned == true && Enemyboard.length == 0){
-        console.log("Draw.")
+        PrintInMessageArea("Draw.")
         EndGame();
     }
     else if(Ourboard.length == 0){
-        console.log("You lost lol");
+        PrintInMessageArea("You lost.");
         EndGame();
     }
     else if(bossspawned == true && Enemyboard.length == 0){
-        console.log("You won... nothing.")
+        PrintInMessageArea("You won!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         EndGame();
     }
 }
@@ -718,20 +780,25 @@ function randomIntFromInterval(min, max) { // min and max included
     }
 
 function EndGame(){
-    document.querySelector('.board').remove();
-
     let button = document.createElement("button");
     button.addEventListener("click", StartAnotherGame);
-    button.innerHTML = "Go back to main menu";
+    button.innerHTML = "Restart game";
     button.classList.add("restartbutton");
-    document.querySelector('body').appendChild(button);
+    document.querySelector('.sidebar').appendChild(button);
 }
 
 function StartAnotherGame(){
     location.reload();
 }
 
-function StartGamebutton(){
-    document.querySelector(".board").style.visibility = "visible";
-    document.getElementById("start").remove();
+function PrintInMessageArea(message) {
+    document.querySelector('.messageArea').innerHTML = message;
+}
+
+function MakeStartButton() {
+    let btn = document.createElement('button');
+    btn.id = 'start';
+    btn.innerHTML = "Start game"
+    btn.addEventListener("click", StartButtonPressed);
+    document.querySelector('.sidebar').appendChild(btn);
 }
