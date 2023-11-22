@@ -93,17 +93,17 @@ let burndmg = 0;
 
 SetBackground();
 MakeStartButton();
+
 function StartButtonPressed() {
-document.getElementById("start").remove();
+    document.getElementById("start").remove();
+    MakeAgents(playerTeam);
 
-MakeAgents(playerTeam);
+    StartGame();
 
-StartGame();
+    document.querySelector('#EndButton').addEventListener("click", EndTurn);
+    document.querySelector('#case').addEventListener("click", CaseClicked);
 
-document.querySelector('#EndButton').addEventListener("click", EndTurn);
-document.querySelector('#case').addEventListener("click", CaseClicked);
-
-UpdateMoney();
+    UpdateMoney();
 
 }
 
@@ -158,7 +158,7 @@ function MakeAgents(team) {
         let attackValue = document.createElement('div');
         attackValue.classList.add('attackValue');
         attackValue.innerHTML = agent.attackValue;
-        attackValue.style.backgroundColor = "blue";
+        attackValue.style.backgroundColor = "#8B8000";
         document.querySelector(`#agent${i} > .infobar`).appendChild(attackValue);
         
         let agentImage = document.createElement('img');
@@ -169,7 +169,6 @@ function MakeAgents(team) {
         div.addEventListener("click", AgentClicked);
     }
 }
-
 function generateCase(team) {
     let generatedCase = []
     if (team == 'CT') {
@@ -323,7 +322,7 @@ function DrawCard(){
 
         let infobar = document.createElement('div');
         infobar.classList.add('infobar_item')
-        infobar.style.backgroundColor = "black";
+        infobar.style.backgroundColor = "gray";
         document.querySelector(`#item${Ourhand.length}`).appendChild(infobar);
         
     
@@ -457,7 +456,6 @@ function StartGame(){
     DrawCard();
     DrawCard();
     DrawCard();
-    DrawCard();
 }
 
 function StartTurn(){
@@ -491,14 +489,14 @@ function Fatigue(){
 
 function SpawnEnemy(){
     UpdateEnemyBoard();
-    if(Enemyboard.length <= 4){
+    if(Enemyboard.length <= 3){
         let spawnboss = Math.floor(Math.random()*20);
         if(bossspawned == false && spawnboss == 19){
             SpawnBoss();
             bossspawned = true;
         }
     }
-    if (bossspawned == false && Enemyboard.length < 7){
+    if (bossspawned == false && Enemyboard.length < 6){
     let r = Math.floor((Math.random()*10));
     let enemyweapon = EnemyWeapons[r];
     let enemyhp = Math.floor((Math.random()+1)*5);
@@ -547,7 +545,7 @@ function SpawnEnemy(){
     let attackValue = document.createElement('div');
     attackValue.classList.add('attackValue');
     attackValue.innerHTML = enemy.attackValue;
-    attackValue.style.backgroundColor = "blue";
+    attackValue.style.backgroundColor = "#8B8000";
     document.querySelector(`#enemy${i} > .infobar`).appendChild(attackValue);
 
     let agentImage = document.createElement('img');
@@ -578,9 +576,9 @@ function SpawnBoss(){
     div.classList.add('enemy');
     div.id = `enemy${i}`
     if (playerTeam == 'T') {
-        div.classList.add('counterTerrorist')
+        div.classList.add('counterTerrorist', 'counterTerroristBoss');
     } else {
-        div.classList.add('terrorist')
+        div.classList.add('terrorist', 'terroristBoss');
     }
     document.querySelector('.enemy_cards').appendChild(div);
 
@@ -607,7 +605,7 @@ function SpawnBoss(){
     let attackValue = document.createElement('div');
     attackValue.classList.add('attackValue');
     attackValue.innerHTML = enemy.attackValue;
-    attackValue.style.backgroundColor = "blue";
+    attackValue.style.backgroundColor = "#8B8000";
     document.querySelector(`#enemy${i} > .infobar`).appendChild(attackValue);
 
     let agentImage = document.createElement('img');
@@ -632,9 +630,9 @@ function SpawnBoss(){
     div2.classList.add('enemy');
     div2.id = `enemy${i+1}`
     if (playerTeam == 'T') {
-        div.classList.add('counterTerrorist', 'counterTerroristBoss');
+        div2.classList.add('counterTerrorist', 'counterTerroristBoss');
     } else {
-        div.classList.add('terrorist', 'terroristBoss')
+        div2.classList.add('terrorist', 'terroristBoss')
     }
     document.querySelector('.enemy_cards').appendChild(div2);
 
@@ -661,7 +659,7 @@ function SpawnBoss(){
     let attackValue2 = document.createElement('div');
     attackValue2.classList.add('attackValue');
     attackValue2.innerHTML = enemy.attackValue;
-    attackValue2.style.backgroundColor = "blue";
+    attackValue2.style.backgroundColor = "#8B8000";
     document.querySelector(`#enemy${i+1} > .infobar`).appendChild(attackValue2);
 
     let agentImage2 = document.createElement('img');
@@ -685,6 +683,11 @@ function SpawnBoss(){
     let div3 = document.createElement('div');
     div3.classList.add('enemy');
     div3.id = `enemy${i+2}`
+    if (playerTeam == 'T') {
+        div3.classList.add('counterTerrorist', 'counterTerroristBoss');
+    } else {
+        div3.classList.add('terrorist', 'terroristBoss')
+    }
     document.querySelector('.enemy_cards').appendChild(div3);
 
     let infobar3 = document.createElement('div');
@@ -710,7 +713,7 @@ function SpawnBoss(){
     let attackValue3 = document.createElement('div');
     attackValue3.classList.add('attackValue');
     attackValue3.innerHTML = enemy.attackValue;
-    attackValue3.style.backgroundColor = "blue";
+    attackValue3.style.backgroundColor = "#8B8000";
     document.querySelector(`#enemy${i+2} > .infobar`).appendChild(attackValue3);
 
     let agentImage3 = document.createElement('img');
@@ -753,7 +756,7 @@ function GameEndedcheck(){
         return;
     }
     else if(bossspawned == true && Enemyboard.length == 0){
-        PrintInMessageArea("You won!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        PrintInMessageArea("You won!")
         EndGame();
         return;
     }
@@ -782,11 +785,13 @@ function randomIntFromInterval(min, max) { // min and max included
     }
 
 function EndGame(){
-    let button = document.createElement("button");
-    button.addEventListener("click", StartAnotherGame);
-    button.innerHTML = "Restart game";
-    button.classList.add("restartbutton");
-    document.querySelector('.sidebar').appendChild(button);
+    if(document.querySelector('.sidebar').children.length <= 3){
+        let button = document.createElement("button");
+        button.addEventListener("click", StartAnotherGame);
+        button.innerHTML = "Go Back";
+        button.classList.add("restartbutton");
+        document.querySelector('.sidebar').appendChild(button);
+    }
 }
 
 function StartAnotherGame(){
@@ -794,7 +799,9 @@ function StartAnotherGame(){
 }
 
 function PrintInMessageArea(message) {
-    document.querySelector('.messageArea').innerHTML = message;
+    if(document.querySelector('.messageArea').innerHTML != "You won!" && document.querySelector('.messageArea').innerHTML != "You lost." && document.querySelector('.messageArea').innerHTML != "Draw.!"){
+        document.querySelector('.messageArea').innerHTML = message;
+    }
 }
 
 function MakeStartButton() {

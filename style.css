@@ -3,6 +3,10 @@
     margin: 0;
     color: black;
 }
+body{
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
 
 .board {
     margin: 10vh;
@@ -90,11 +94,11 @@
 }
 
 .end_turn button {
-    width: 40%;
-    height: 15%;
-    margin: auto; 
+    width: 50%;
+    height: 25%;
+    margin: auto;
     color: black;
-    
+
 }
 
 .agent, .cardInHand{
@@ -143,7 +147,7 @@
     background-color: black;
     font-size: 10vh;
     text-align: center;
-    
+
 }
 .cardInHand {
     width: auto;
@@ -172,14 +176,14 @@
 
 .restartbutton{
     margin: auto;
+    width: 80%;
     height: 10%;
-    width: 10%;
 }
 
 #start {
     color: black;
-    width: 90%;
-    height: 10vh;
+    width: 80%;
+    height: 10%;
 }
 
 .terroristBoss {
