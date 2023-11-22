@@ -126,7 +126,7 @@ function MakeAgents(team) {
         div.classList.add('agent');
         if (playerTeam == 'T') {
             div.classList.add('terrorist');
-        } else {
+        } else if(playerTeam = 'CT') {
             div.classList.add('counterTerrorist');
         }
         div.id = `agent${i}`
@@ -154,7 +154,7 @@ function MakeAgents(team) {
         attackValue.classList.add('attackValue');
         attackValue.innerHTML = agent.attackValue;
         document.querySelector(`#agent${i} > .infobar`).appendChild(attackValue);
-
+        
         let agentImage = document.createElement('img');
         agentImage.classList.add('agentImage');
         let rnd = Math.floor(Math.random() * 8) + 1;

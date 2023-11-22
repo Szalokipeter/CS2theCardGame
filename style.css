@@ -1,6 +1,7 @@
  *{
     padding: 0;
     margin: 0;
+    color: white;
  }
  
 .board {
@@ -20,7 +21,7 @@
 
 .enemy_board {
     width: 100%;
-    height: 60%;
+    height: 40%;
 }
 
 .enemy_cards {
@@ -42,7 +43,7 @@
 }
 .player {
     width: 100%;
-    height: 40%;
+    height: 60%;
 }
 
 .player_cards {
@@ -60,8 +61,8 @@
     width: 100%;
     border: 1px black solid;
     display: flex;
-        flex-direction: row;
-    align-items: center;
+    flex-direction: row;
+    align-items: end;
     justify-content: space-around;
 }
 
@@ -116,7 +117,7 @@
 
 .hpCounter, .slot1, .slot2, .attackValue, .damage, .cost, .durability, .type{
     text-align: center;
-    border: 1px solid black;
+    border: 1px solid white;
 }
 
 .láda{
@@ -138,13 +139,24 @@
 }
 .cardInHand {
     width: auto;
+    height: 80%;
+    background-image: url(img/bg.png);
 }
 .cardInHand > img {
     height: 50%;
     width: auto;
+    margin: 1vh;
 }
 
 .agentImage {
     height: 100%;
     width: auto;
+}
+
+.terrorist {
+    background-image: url(img/t_bg.png);
+}
+
+.counterTerrorist {
+    background-color: url(img/ct_bg.png);
 }
