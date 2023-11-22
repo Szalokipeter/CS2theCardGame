@@ -127,7 +127,7 @@ function MakeAgents(team) {
         div.classList.add('agent');
         if (playerTeam == 'T') {
             div.classList.add('terrorist');
-        } else if(playerTeam = 'CT') {
+        } else if(playerTeam == 'CT') {
             div.classList.add('counterTerrorist');
         }
         div.id = `agent${i}`
