@@ -65,16 +65,16 @@ let TCards = [
     new Item("Heal", 3, "img/citemhealthshot.png")
 ];
 let EnemyWeapons = [
-    new Weapon(8,8,0,2, "img/AWP.png", undefined),
-    new Weapon(6,5,0,4, "img/AK47.png", undefined),
-    new Weapon(4,5,0,4, "img/GALIL.png", undefined),
-    new Weapon(3,2,1,8, "img/TEC9.png", undefined),
-    new Weapon(4,3,0,2, "img/SAWNOFF.png", undefined),
-    new Weapon(4,3,0,3, "img/MP9.png", undefined),
-    new Weapon(6,2,1,2, "img/DESERT.png", undefined),
-    new Weapon(6,5,0,5, "img/AK47.png", undefined),
-    new Weapon(4,5,0,4, "img/GALIL.png", undefined),
-    new Weapon(2,0,1,8, "img/Glock.png", undefined)
+    new Weapon(8,8,0,2, "img/awp.png", undefined),
+    new Weapon(6,5,0,4, "img/ak47.png", undefined),
+    new Weapon(4,5,0,4, "img/galil.png", undefined),
+    new Weapon(3,2,1,8, "img/tec9.png", undefined),
+    new Weapon(4,3,0,2, "img/mac10.png", undefined),
+    new Weapon(4,3,0,3, "img/mp9.png", undefined),
+    new Weapon(6,2,1,2, "img/desert_eagle.png", undefined),
+    new Weapon(6,5,0,5, "img/ak47.png", undefined),
+    new Weapon(4,5,0,4, "img/galil.png", undefined),
+    new Weapon(2,0,1,8, "img/glock.png", undefined)
 ];
 let Enemyboard = [];
 let Ourboard = [];
@@ -95,10 +95,11 @@ SetBackground();
 MakeStartButton();
 
 function StartButtonPressed() {
-    document.getElementById("start").remove();
-    MakeAgents(playerTeam);
+document.getElementById("start").remove();
 
-    StartGame();
+MakeAgents(playerTeam);
+UpdateOurBoard();
+StartGame();
 
     document.querySelector('#EndButton').addEventListener("click", EndTurn);
     document.querySelector('#case').addEventListener("click", CaseClicked);
@@ -330,6 +331,7 @@ function DrawCard(){
             document.querySelector(`#item${Ourhand.length}`).addEventListener("click", ItemClicked);
             let type = document.createElement('div');
             type.classList.add('type');
+            type.style.backgroundColor = "wheat";
             type.innerHTML = drawnCard.type;
             document.querySelector(`#item${Ourhand.length} > .infobar_item`).appendChild(type)
         } 
@@ -407,6 +409,14 @@ function UpdateOurBoard(){
                 if (healthCounter) {
                     healthCounter.textContent = agent.hp;
                 }
+                let slot1 = agentDiv.querySelector('.slot1');
+                if (slot1 && agent.slot1) {
+                slot1.style.backgroundImage = `url(${agent.slot1.imagePath})`;
+                }
+                let slot2 = agentDiv.querySelector('.slot2');
+                if (slot2 && agent.slot2) {
+                slot2.style.backgroundImage = `url(${agent.slot2.imagePath})`;
+                }
             }
         }
         const dmgDiv = document.querySelector(`#${agent.id} .infobar .attackValue`);
@@ -437,6 +447,14 @@ function UpdateEnemyBoard(){
                 const dmgcounter = enemydiv.querySelector(".attackValue");
                 if(dmgcounter){
                     dmgcounter.textContent = enemy.attackValue;
+                }
+                let slot1 = enemydiv.querySelector('.slot1');
+                if (slot1 && enemy.slot1) {
+                slot1.style.backgroundImage = `url(${enemy.slot1.imagePath})`;
+                }
+                let slot2 = enemydiv.querySelector('.slot2');
+                if (slot2 && enemy.slot2) {
+                slot2.style.backgroundImage = `url(${enemy.slot2.imagePath})`;
                 }
             }
         }
@@ -472,7 +490,6 @@ function EndTurn(){
     burn();
     EnemysAttack();
     UpdateEnemyBoard();
-    UpdateOurBoard();
     SpawnEnemy();
     StartTurn();
 }
@@ -561,14 +578,15 @@ function SpawnEnemy(){
     document.querySelector(`#enemy${i}`).appendChild(agentImage);
 
     div.addEventListener("click", EnemyClicked);
+    UpdateEnemyBoard();
     }
 }
 
 function SpawnBoss(){
     UpdateEnemyBoard();
     let i = Enemyboard.length+1;
-    let bossweapon = new Weapon(6,5,0,10, "img/AK47.png", undefined);
-    let bosssecondary = new Weapon(2,0,1,10, "img/Glock.png", undefined);
+    let bossweapon = new Weapon(6,5,0,10, "img/ak47.png", undefined);
+    let bosssecondary = new Weapon(2,0,1,10, "img/glock.png", undefined);
     let enemy = new Enemy(10, bossweapon, undefined, "img/mini.png", `enemy${i}`);
     Enemyboard.push(enemy);
 
@@ -729,7 +747,7 @@ function SpawnBoss(){
     document.querySelector(`#enemy${i+2}`).appendChild(agentImage3);
 
     div3.addEventListener("click", EnemyClicked);
-
+    UpdateEnemyBoard();
 }
 
 function EnemysAttack(){
