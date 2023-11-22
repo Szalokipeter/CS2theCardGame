@@ -198,3 +198,8 @@
     color: black;
     font-size: 4vh;
 }
+
+.slot1, .slot2 {
+    background-size: contain;
+    background-repeat: no-repeat;
+}

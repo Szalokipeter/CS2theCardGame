@@ -11,10 +11,10 @@ export class Agent{
         this.id = id;
         this.shield = false;
         if (team == 'T'){
-            this.slot2 = new Weapon(2, 0, 1, 8, 'img/Glock.png', undefined);
+            this.slot2 = new Weapon(2, 0, 1, 8, 'img/glock.png', undefined);
         }
         else {
-            this.slot2 = new Weapon(3, 0, 1, 4, 'img/USP.png', undefined);
+            this.slot2 = new Weapon(3, 0, 1, 4, 'img/usp_silencer.png', undefined);
         }
         
         if(this.slot1 != undefined && this.slot2 != undefined){
