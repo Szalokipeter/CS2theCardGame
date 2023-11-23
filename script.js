@@ -417,6 +417,7 @@ function UpdateOurBoard(){
                 if (slot2 && agent.slot2) {
                 slot2.style.backgroundImage = `url(${agent.slot2.imagePath})`;
                 }
+                Weaponclearourweaponifbroken();
             }
         }
         const dmgDiv = document.querySelector(`#${agent.id} .infobar .attackValue`);
@@ -456,6 +457,7 @@ function UpdateEnemyBoard(){
                 if (slot2 && enemy.slot2) {
                 slot2.style.backgroundImage = `url(${enemy.slot2.imagePath})`;
                 }
+                Weaponcleartheirweaponifbroken();
             }
         }
     });
@@ -843,4 +845,34 @@ function MakeStartButton() {
     btn.innerHTML = "Start game"
     btn.addEventListener("click", StartButtonPressed);
     document.querySelector('.sidebar').appendChild(btn);
+}
+
+function Weaponclearourweaponifbroken(){
+    Ourboard.forEach(agent => {
+        if(agent.slot1 == undefined){
+                let parentdiv = document.querySelector(`#${agent.id}`);
+                let childdiv = parentdiv.querySelector(`.slot1`);
+                childdiv.style.backgroundImage = '';
+        }
+        if(agent.slot2 == undefined){
+                let parentdiv = document.querySelector(`#${agent.id}`);
+                let childdiv = parentdiv.querySelector(`.slot2`);
+                childdiv.style.backgroundImage = '';
+        }
+    });
+}
+
+function Weaponcleartheirweaponifbroken(){
+    Enemyboard.forEach(enemy => {
+        if(enemy.slot1 == undefined){
+                let parentdiv = document.querySelector(`#${enemy.id}`);
+                let childdiv = parentdiv.querySelector(`.slot1`);
+                childdiv.style.backgroundImage = '';
+        }
+        if(enemy.slot2 == undefined){
+                let parentdiv = document.querySelector(`#${enemy.id}`);
+                let childdiv = parentdiv.querySelector(`.slot2`);
+                childdiv.style.backgroundImage = '';
+        }
+    });
 }
